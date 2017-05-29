@@ -2,7 +2,9 @@ package com.mygdx.brickbreaker;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
+import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.utils.Array;
 
 /**
@@ -30,7 +32,7 @@ public class GameScreen implements Screen {
         bar.body.x = game.WIDTH / 2 - bar.width;
         bar.body.y = game.HEIGHT / 14 - bar.height;
 
-        // Fazendo o mapa
+        // Fazendo o mapa (Construir um gerador talvez)
         int h = game.HEIGHT - SPACE - Brick.height;
         bricks = new Array<Array<Brick>>();
         for (int i = 0; i < 6; i++) {
@@ -58,6 +60,7 @@ public class GameScreen implements Screen {
         game.batch.begin();
         game.batch.draw(ball.image, ball.body.x, ball.body.y);
         game.batch.draw(bar.image, bar.body.x, bar.body.y);
+
         for (Array row : bricks)
             for (Object b : row) {
                 Brick brick = (Brick) b;
@@ -65,6 +68,9 @@ public class GameScreen implements Screen {
             }
 
         game.batch.end();
+
+        // Movement processing
+        inputProcessing();
     }
 
 
@@ -74,6 +80,23 @@ public class GameScreen implements Screen {
         bar.image.dispose();
     }
 
+
+    public void inputProcessing() {
+        // Separar os modos de input
+        if (Gdx.input.isTouched()) {
+            Vector3 touchPos = new Vector3();
+            touchPos.set(Gdx.input.getX(), Gdx.input.getY(), 0);
+            game.camera.unproject(touchPos);
+            // Limitando altura do toque
+            Gdx.app.log("TOUCH", touchPos.toString());
+            if (touchPos.y <= game.HEIGHT / 4) {
+                bar.body.x = touchPos.x - bar.width;
+                // Limitando laterais
+                if (bar.body.x < 0) bar.body.x = 0;
+                else if (bar.body.x + 2*bar.width > game.WIDTH) bar.body.x = game.WIDTH - 2*bar.width;
+            }
+        }
+    }
     @Override
     public void show() {
 
