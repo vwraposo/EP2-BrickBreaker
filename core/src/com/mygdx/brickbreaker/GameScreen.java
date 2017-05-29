@@ -19,7 +19,6 @@ public class GameScreen implements Screen {
 
     private final Integer SPACE;
 
-
     public GameScreen(final BrickBreaker game) {
         this.game = game;
         SPACE = game.WIDTH / 16;
@@ -27,10 +26,10 @@ public class GameScreen implements Screen {
         bar = new Body("bar.png", 150, 25);
 
         ball.body.x = game.WIDTH / 2 - ball.width;
-        ball.body.y = game.HEIGHT / 14 + bar.height;
+        ball.body.y = game.HEIGHT / 10 + bar.height;
 
         bar.body.x = game.WIDTH / 2 - bar.width;
-        bar.body.y = game.HEIGHT / 14 - bar.height;
+        bar.body.y = game.HEIGHT / 10 - bar.height;
 
         // Fazendo o mapa (Construir um gerador talvez)
         int h = game.HEIGHT - SPACE - Brick.height;
@@ -83,19 +82,23 @@ public class GameScreen implements Screen {
 
     public void inputProcessing() {
         // Separar os modos de input
-        if (Gdx.input.isTouched()) {
-            Vector3 touchPos = new Vector3();
-            touchPos.set(Gdx.input.getX(), Gdx.input.getY(), 0);
-            game.camera.unproject(touchPos);
-            // Limitando altura do toque
-            Gdx.app.log("TOUCH", touchPos.toString());
-            if (touchPos.y <= game.HEIGHT / 4) {
-                bar.body.x = touchPos.x - bar.width;
-                // Limitando laterais
-                if (bar.body.x < 0) bar.body.x = 0;
-                else if (bar.body.x + 2*bar.width > game.WIDTH) bar.body.x = game.WIDTH - 2*bar.width;
+        if(game.getMode() == game.MODE_1) {
+            if (Gdx.input.isTouched()) {
+                Vector3 touchPos = new Vector3();
+                touchPos.set(Gdx.input.getX(), Gdx.input.getY(), 0);
+                game.camera.unproject(touchPos);
+                // Limitando altura do toque
+                Gdx.app.log("TOUCH", touchPos.toString());
+                if (touchPos.y <= game.HEIGHT / 4)
+                    bar.body.x = touchPos.x - bar.width;
             }
         }
+        else {
+        }
+        // Limitando laterais
+        if (bar.body.x < 0) bar.body.x = 0;
+        else if (bar.body.x + 2 * bar.width > game.WIDTH)
+            bar.body.x = game.WIDTH - 2 * bar.width;
     }
     @Override
     public void show() {

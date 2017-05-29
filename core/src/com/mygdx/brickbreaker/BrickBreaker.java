@@ -9,11 +9,15 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGenerator;
 
 public class BrickBreaker extends Game {
+	public Integer MODE_1 = 1;
+	public Integer MODE_2 = 2;
+
     public SpriteBatch batch;
     public BitmapFont font;
 	public OrthographicCamera camera;
 	public final Integer WIDTH = 1440;
 	public final Integer HEIGHT = 2560;
+	private Integer mode;
 	
 	@Override
 	public void create () {
@@ -34,6 +38,14 @@ public class BrickBreaker extends Game {
 		camera.setToOrtho(false, WIDTH, HEIGHT);
 
         this.setScreen(new MainMenuScreen(this));
+	}
+
+	public void setMode(Integer mode) {
+		this.mode = mode;
+	}
+
+	public Integer getMode() {
+		return mode;
 	}
 
 	@Override

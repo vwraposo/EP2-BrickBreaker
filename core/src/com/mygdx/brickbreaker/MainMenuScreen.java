@@ -28,6 +28,8 @@ public class MainMenuScreen implements Screen {
         game.font.draw(game.batch, "Tap anywhere to begin!", game.WIDTH/8, 3*game.HEIGHT/8);
         game.batch.end();
 
+        // Choose mode
+        game.setMode(game.MODE_1);
         if (Gdx.input.isTouched()) {
             game.setScreen(new GameScreen(game));
             dispose();

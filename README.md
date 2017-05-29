@@ -5,6 +5,13 @@ Projeto de Exercício-Programa para a matéria MAC0463 - Computação Móvel | I
 - João Francisco Lino Daniel - 7578279
 - Victor Wichmann Raposo - 9298020
 
+## TODO
+[ ] - 1 
+[x] - 2
+[ ] - 3
+[ ] - 4
+[ ] - 5
+[ ] - 6
 
 ## Ideias
 > - Fácil (2): Highscore e mais um continente à sua escolha (áudio acho que poderia ter independentemente das escolhas)
