@@ -12,8 +12,8 @@ public class BrickBreaker extends Game {
     public SpriteBatch batch;
     public BitmapFont font;
 	public OrthographicCamera camera;
-	public final Integer WIDTH = 720;
-	public final Integer HEIGHT = 1280;
+	public final Integer WIDTH = 1440;
+	public final Integer HEIGHT = 2560;
 	
 	@Override
 	public void create () {
