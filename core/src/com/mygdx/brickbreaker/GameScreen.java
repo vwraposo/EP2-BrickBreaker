@@ -17,35 +17,16 @@ public class GameScreen implements Screen {
     private Body bar;
     private Array<Array<Brick>> bricks;
 
-    private final Integer SPACE;
+
 
     public GameScreen(final BrickBreaker game) {
+        // Locais
         this.game = game;
-        SPACE = game.WIDTH / 16;
-        ball = new Body("ball.png", 30, 30);
-        bar = new Body("bar.png", 150, 25);
+        this.ball = game.ball;
+        this.bar = game.bar;
+        this.bricks = game.bricks;
 
-        ball.body.x = game.WIDTH / 2 - ball.width;
-        ball.body.y = game.HEIGHT / 10 + bar.height;
-
-        bar.body.x = game.WIDTH / 2 - bar.width;
-        bar.body.y = game.HEIGHT / 10 - bar.height;
-
-        // Fazendo o mapa (Construir um gerador talvez)
-        int h = game.HEIGHT - SPACE - Brick.height;
-        bricks = new Array<Array<Brick>>();
-        for (int i = 0; i < 6; i++) {
-            bricks.add(new Array<Brick>());
-        }
-        for (Array row : bricks){
-            for (int i = 0; i < 8; i++) {
-                Brick brick = new Brick(1);
-                brick.body.x = i *(Brick.width + SPACE) + SPACE;
-                brick.body.y = h;
-                row.add(brick);
-            }
-            h -= Brick.height + SPACE;
-        }
+        game.batch.setColor(Color.WHITE);
     }
 
     @Override

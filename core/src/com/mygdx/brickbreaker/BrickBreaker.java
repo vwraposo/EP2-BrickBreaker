@@ -7,6 +7,7 @@ import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGenerator;
+import com.badlogic.gdx.utils.Array;
 
 public class BrickBreaker extends Game {
 	public Integer MODE_1 = 1;
@@ -18,6 +19,11 @@ public class BrickBreaker extends Game {
 	public final Integer WIDTH = 1440;
 	public final Integer HEIGHT = 2560;
 	private Integer mode;
+
+	//Objetos do jogo
+	public Body ball;
+	public Body bar;
+	public Array<Array<Brick>> bricks;
 	
 	@Override
 	public void create () {
