@@ -1,4 +1,4 @@
-package com.mygdx.brickbreaker;
+package com.mygdx.brickbreaker.models;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
@@ -21,6 +21,9 @@ public class Brick {
 
     public Brick (Integer lives) {
         this.body = new Rectangle();
+        body.height = 60;
+        body.width = 150;
+
         this.lives = lives;
         images = new Texture[3];
         images[0] = new Texture(Gdx.files.internal("brick_easy.png"));
@@ -28,6 +31,12 @@ public class Brick {
 
     public Texture getImage() {
         return images[lives - 1];
+    }
+
+    public boolean hit() {
+        lives--;
+        if (lives == 0) return true;
+        return false;
     }
 
 }

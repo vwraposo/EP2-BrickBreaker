@@ -1,7 +1,7 @@
 package com.mygdx.brickbreaker;
 
 import com.badlogic.gdx.utils.Array;
-import com.mygdx.brickbreaker.Brick;
+import com.mygdx.brickbreaker.models.Brick;
 
 /**
  * Created by vwraposo on 30/05/17.

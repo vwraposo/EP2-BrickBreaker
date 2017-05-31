@@ -5,6 +5,8 @@ import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.utils.Array;
+import com.mygdx.brickbreaker.models.Body;
+import com.mygdx.brickbreaker.models.Brick;
 
 /**
  * Created by vwraposo on 29/05/17.
@@ -16,14 +18,15 @@ public class MainMenuScreen implements Screen {
     public MainMenuScreen(final BrickBreaker game) {
         this.game = game;
 
-        game.ball = new Body("ball.png", 30, 30);
-        game.bar = new Body("bar.png", 150, 25);
 
-        game.ball.body.x = game.WIDTH / 2 - game.ball.width;
-        game.ball.body.y = game.HEIGHT / 10 + game.bar.height;
+        game.ball = new com.mygdx.brickbreaker.models.Ball("ball.png");
+        game.platform = new Body("bar.png");
 
-        game.bar.body.x = game.WIDTH / 2 - game.bar.width;
-        game.bar.body.y = game.HEIGHT / 10 - game.bar.height;
+        game.ball.body.x = game.WIDTH / 2 - game.ball.body.width / 2;
+        game.ball.body.y = game.HEIGHT / 8 + game.platform.body.height / 2;
+
+        game.platform.body.x = game.WIDTH / 2 - game.platform.body.width / 2;
+        game.platform.body.y = game.HEIGHT / 8 - game.platform.body.height / 2;
 
         game.bricks = MapGenerator.getMap(game, 1);
 
@@ -46,11 +49,11 @@ public class MainMenuScreen implements Screen {
 
 
         game.batch.draw(game.ball.image, game.ball.body.x, game.ball.body.y);
-        game.batch.draw(game.bar.image, game.bar.body.x, game.bar.body.y);
+        game.batch.draw(game.platform.image, game.platform.body.x, game.platform.body.y);
 
         for (Array row : game.bricks)
             for (Object b : row) {
-                Brick brick = (Brick) b;
+                com.mygdx.brickbreaker.models.Brick brick = (Brick) b;
                 game.batch.draw(brick.getImage(), brick.body.x, brick.body.y);
             }
 
