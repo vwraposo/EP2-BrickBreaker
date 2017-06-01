@@ -1,5 +1,6 @@
 package com.mygdx.brickbreaker.models;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.math.Vector2;
 
 /**
@@ -19,6 +20,7 @@ public class Ball extends Body {
 
 
     public void move(float delta) {
+        Gdx.app.log("BALL", "Move");
         this.body.x += velocity.x * delta;
         this.body.y += velocity.y * delta;
     }

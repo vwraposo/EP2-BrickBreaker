@@ -1,23 +1,24 @@
-package com.mygdx.brickbreaker;
+package com.mygdx.brickbreaker.controllers;
 
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.utils.Array;
+import com.mygdx.brickbreaker.BrickBreaker;
+import com.mygdx.brickbreaker.GameScreen;
+import com.mygdx.brickbreaker.MapGenerator;
 import com.mygdx.brickbreaker.models.Body;
 import com.mygdx.brickbreaker.models.Brick;
 
 /**
- * Created by vwraposo on 29/05/17.
+ * Created by vwraposo on 01/06/17.
  */
 
-public class MainMenuScreen implements Screen {
+public class MenuController {
     final BrickBreaker game;
 
-    public MainMenuScreen(final BrickBreaker game) {
+    public MenuController (BrickBreaker game) {
         this.game = game;
-
 
         game.ball = new com.mygdx.brickbreaker.models.Ball("ball.png");
         game.platform = new Body("bar.png");
@@ -31,16 +32,10 @@ public class MainMenuScreen implements Screen {
         game.bricks = MapGenerator.getMap(game, 1);
 
         //Fundo Cinza
-        game.batch.setColor(Color.GRAY);
+        game.batch.setColor(Color.LIGHT_GRAY);
     }
 
-    @Override
     public void render(float delta) {
-        Gdx.gl.glClearColor(0.17f, 0.19f, 0.25f, 1f);
-        Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
-
-        game.camera.update();
-        game.batch.setProjectionMatrix(game.camera.combined);
 
         game.batch.begin();
 
@@ -62,38 +57,10 @@ public class MainMenuScreen implements Screen {
         // Choose mode
         game.setMode(game.MODE_1);
         if (Gdx.input.isTouched()) {
-            game.setScreen(new GameScreen(game));
-            dispose();
+            game.batch.setColor(Color.WHITE);
+            game.setState(game.GAME);
         }
     }
 
-    @Override
-    public void show() {
 
-    }
-
-    @Override
-    public void resize(int width, int height) {
-
-    }
-
-    @Override
-    public void pause() {
-
-    }
-
-    @Override
-    public void resume() {
-
-    }
-
-    @Override
-    public void hide() {
-
-    }
-
-    @Override
-    public void dispose() {
-
-    }
 }

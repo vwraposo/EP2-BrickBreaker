@@ -12,8 +12,8 @@ import com.mygdx.brickbreaker.models.Body;
 import com.mygdx.brickbreaker.models.Brick;
 
 public class BrickBreaker extends Game {
-	public Integer MODE_1 = 1;
-	public Integer MODE_2 = 2;
+	public final Integer MODE_1 = 1;
+	public final Integer MODE_2 = 2;
 
     public SpriteBatch batch;
     public BitmapFont font;
@@ -26,6 +26,13 @@ public class BrickBreaker extends Game {
 	public com.mygdx.brickbreaker.models.Ball ball;
 	public Body platform;
 	public Array<Array<Brick>> bricks;
+
+	// Estado do jogo
+	private Integer state;
+	//Estados
+	public final Integer MENU = 0;
+	public final Integer GAME = 1;
+	public final Integer FINISH = 2;
 	
 	@Override
 	public void create () {
@@ -45,16 +52,12 @@ public class BrickBreaker extends Game {
 		camera = new OrthographicCamera();
 		camera.setToOrtho(false, WIDTH, HEIGHT);
 
-        this.setScreen(new MainMenuScreen(this));
+		// Set up do estado
+		setState(MENU);
+        this.setScreen(new GameScreen(this));
 	}
 
-	public void setMode(Integer mode) {
-		this.mode = mode;
-	}
 
-	public Integer getMode() {
-		return mode;
-	}
 
 	@Override
 	public void render () {
@@ -65,5 +68,21 @@ public class BrickBreaker extends Game {
 	public void dispose () {
 		batch.dispose();
 		font.dispose();
+	}
+
+	public void setState(Integer state) {
+		this.state = state;
+	}
+
+	public Integer getState() {
+		return state;
+	}
+
+	public void setMode(Integer mode) {
+		this.mode = mode;
+	}
+
+	public Integer getMode() {
+		return mode;
 	}
 }
