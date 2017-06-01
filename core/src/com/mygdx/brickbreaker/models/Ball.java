@@ -14,6 +14,7 @@ public class Ball extends Body {
         super(img);
 
         velocity = new Vector2();
+        //TODO: Aleatorizar velocidade inicial
         velocity.x = 500;
         velocity.y = 1000;
     }

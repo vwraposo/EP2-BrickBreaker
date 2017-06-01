@@ -29,6 +29,7 @@ public class MenuController {
         game.platform.body.x = game.WIDTH / 2 - game.platform.body.width / 2;
         game.platform.body.y = game.HEIGHT / 8 - game.platform.body.height / 2;
 
+        //TODO : Refatorar e transformar o mapa em um modelo, alem disso pensar no melhor jeito de salvar
         game.bricks = MapGenerator.getMap(game, 1);
 
         //Fundo Cinza
@@ -36,6 +37,7 @@ public class MenuController {
     }
 
     public void render(float delta) {
+        //TODO: Arrumar texto na Tela
 
         game.batch.begin();
 

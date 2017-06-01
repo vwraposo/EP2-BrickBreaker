@@ -43,6 +43,7 @@ public class GameScreen implements Screen {
             Gdx.app.log("STATE", "In game");
             gameController.render(delta);
         }
+        //TODO: Render de final
  //       else
 //            renderFinish(delta);
 

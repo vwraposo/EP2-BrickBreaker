@@ -27,9 +27,8 @@ public class GameController {
 
     }
 
+    //TODO: Bola lancada no primeiro toque
     public void render(float delta) {
-
-
         game.batch.begin();
         game.batch.draw(ball.image, ball.body.x, ball.body.y);
         game.batch.draw(platform.image, platform.body.x, platform.body.y);
@@ -74,13 +73,11 @@ public class GameController {
         }
 
         //Bar and ball interaction ARRUMAR
+        //TODO: Arrumar interacao entre bola e plataforma
         if (ball.body.overlaps(platform.body) &&
                 ball.body.y + ball.body.height/2 > platform.body.y + platform.body.height) {
             ball.velocity.y *= -1;
             ball.body.y = platform.body.y + platform.body.height;
-        }
-        else {
-            // Bater lateralmente
         }
 
         // Ball and bricks interaction
@@ -88,7 +85,7 @@ public class GameController {
             for (Object b : row) {
                 com.mygdx.brickbreaker.models.Brick brick = (Brick) b;
                 if (ball.body.overlaps(brick.body)) {
-                    // Vertical (VERIFICAR SE TA CERTO)
+                    // Vertical
                     if (ball.body.y + ball.body.height / 2 <= platform.body.y ||
                             ball.body.y + ball.body.height / 2 >= platform.body.y + platform.body.height) {
                         ball.velocity.y *= -1;
@@ -105,7 +102,6 @@ public class GameController {
             if (row.size == 0) bricks.removeValue(row, true);
         }
 
-        Gdx.app.log("BALL", "Call Move");
         ball.move(delta);
     }
 
