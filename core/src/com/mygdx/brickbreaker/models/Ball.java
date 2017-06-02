@@ -3,6 +3,11 @@ package com.mygdx.brickbreaker.models;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.math.Vector2;
 
+import static com.badlogic.gdx.math.MathUtils.PI;
+import static com.badlogic.gdx.math.MathUtils.cos;
+import static com.badlogic.gdx.math.MathUtils.random;
+import static com.badlogic.gdx.math.MathUtils.sin;
+
 /**
  * Created by vwraposo on 31/05/17.
  */
@@ -14,10 +19,12 @@ public class Ball extends Body {
     public Ball (String img) {
         super(img);
 
-        velocity = new Vector2();
+
         //TODO: Aleatorizar velocidade inicial
-        velocity.x = 500;
-        velocity.y = 1000;
+        float ang =  random(- PI / 4, PI / 4);
+        velocity = new Vector2();
+        velocity.x = sin(ang)*norm;
+        velocity.y = cos(ang)*norm;
     }
 
 

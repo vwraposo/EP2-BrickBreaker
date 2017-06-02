@@ -29,7 +29,6 @@ public class GameController {
 
     }
 
-    //TODO: Bola lancada no primeiro toque
     public void render(float delta) {
         game.batch.begin();
         game.batch.draw(ball.image, ball.body.x, ball.body.y);
@@ -75,7 +74,7 @@ public class GameController {
         else if (ball.body.y <= 0) {
             // You lose
         }
-        
+
         if (ball.body.overlaps(platform.body) &&
                 ball.body.y + ball.body.height/2 > platform.body.y + platform.body.height) {
             Vector2 d = new Vector2(
