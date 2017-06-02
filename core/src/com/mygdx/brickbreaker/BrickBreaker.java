@@ -10,6 +10,7 @@ import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGenerator;
 import com.badlogic.gdx.utils.Array;
 import com.mygdx.brickbreaker.models.Body;
 import com.mygdx.brickbreaker.models.Brick;
+import com.sun.org.apache.xpath.internal.operations.Bool;
 
 public class BrickBreaker extends Game {
 	public final Integer MODE_1 = 1;
@@ -28,6 +29,7 @@ public class BrickBreaker extends Game {
 	public Array<Array<Brick>> bricks;
 
 	// Estado do jogo
+	private Boolean victory = true;
 	private Integer state;
 	//Estados
 	public final Integer MENU = 0;
@@ -42,7 +44,7 @@ public class BrickBreaker extends Game {
 		// Set up das fontes
         FreeTypeFontGenerator generator = new FreeTypeFontGenerator(Gdx.files.internal("Roboto-Regular.ttf"));
         FreeTypeFontGenerator.FreeTypeFontParameter parameter = new FreeTypeFontGenerator.FreeTypeFontParameter();
-        parameter.size = 50;
+        parameter.size = 80;
 
         parameter.shadowColor = Color.BLACK;
         font = generator.generateFont(parameter); // font size 12 pixels
@@ -84,5 +86,17 @@ public class BrickBreaker extends Game {
 
 	public Integer getMode() {
 		return mode;
+	}
+
+	public void gameWon() {
+		victory = true;
+	}
+
+	public void gameLost() {
+		victory = false;
+	}
+
+	public Boolean result() {
+		return victory;
 	}
 }

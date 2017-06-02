@@ -19,8 +19,6 @@ public class Ball extends Body {
     public Ball (String img) {
         super(img);
 
-
-        //TODO: Aleatorizar velocidade inicial
         float ang =  random(- PI / 4, PI / 4);
         velocity = new Vector2();
         velocity.x = sin(ang)*norm;

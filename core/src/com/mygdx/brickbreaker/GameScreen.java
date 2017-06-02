@@ -3,6 +3,7 @@ package com.mygdx.brickbreaker;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.GL20;
+import com.mygdx.brickbreaker.controllers.EndGameController;
 import com.mygdx.brickbreaker.controllers.GameController;
 import com.mygdx.brickbreaker.controllers.MenuController;
 
@@ -14,6 +15,7 @@ public class GameScreen implements Screen {
     final BrickBreaker game;
     private GameController gameController;
     private MenuController menuController;
+    private EndGameController endGameController;
 
 
 
@@ -24,6 +26,7 @@ public class GameScreen implements Screen {
         this.game = game;
         this.menuController = new MenuController(this.game);
         this.gameController = new GameController(this.game);
+        this.endGameController = new EndGameController(this.game);
 
     }
 
@@ -43,10 +46,10 @@ public class GameScreen implements Screen {
             Gdx.app.log("STATE", "In game");
             gameController.render(delta);
         }
-        //TODO: Render de final
- //       else
-//            renderFinish(delta);
-
+        else {
+            Gdx.app.log("STATE", "End Game");
+            endGameController.render(delta);
+        }
 
     }
 

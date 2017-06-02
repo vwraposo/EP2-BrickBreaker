@@ -2,6 +2,7 @@ package com.mygdx.brickbreaker.controllers;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
+import com.badlogic.gdx.graphics.g2d.GlyphLayout;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.utils.Array;
@@ -20,12 +21,15 @@ public class GameController {
     private Array<Array<Brick>> bricks;
 
 
+
     public GameController(BrickBreaker game) {
         // Locais
         this.game = game;
         this.ball = game.ball;
         this.platform = game.platform;
         this.bricks = game.bricks;
+
+
 
     }
 
@@ -72,7 +76,11 @@ public class GameController {
             ball.body.y = game.HEIGHT - ball.body.height;
         }
         else if (ball.body.y <= 0) {
-            // You lose
+            // You lost
+            Gdx.app.log("ENDGAME", "You lost");
+            game.gameLost();
+            Gdx.app.log("ENDGAME", game.result().toString());
+            game.setState(game.FINISH);
         }
 
         if (ball.body.overlaps(platform.body) &&
@@ -105,6 +113,12 @@ public class GameController {
                 }
             }
             if (row.size == 0) bricks.removeValue(row, true);
+        }
+
+        if (bricks.size == 0) {
+            Gdx.app.log("ENDGAME", "You won");
+            game.gameWon();
+            game.setState(game.FINISH);
         }
 
         ball.move(delta);
