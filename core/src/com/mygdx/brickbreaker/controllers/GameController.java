@@ -2,6 +2,7 @@ package com.mygdx.brickbreaker.controllers;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
+import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.utils.Array;
 import com.mygdx.brickbreaker.BrickBreaker;
@@ -17,6 +18,7 @@ public class GameController {
     private com.mygdx.brickbreaker.models.Ball ball;
     private com.mygdx.brickbreaker.models.Body platform;
     private Array<Array<Brick>> bricks;
+
 
     public GameController(BrickBreaker game) {
         // Locais
@@ -41,9 +43,11 @@ public class GameController {
 
         game.batch.end();
 
+
         // Movement processing
         inputProcessing();
         objectsProcessing(delta);
+
 
     }
 
@@ -71,12 +75,14 @@ public class GameController {
         else if (ball.body.y <= 0) {
             // You lose
         }
-
-        //Bar and ball interaction ARRUMAR
-        //TODO: Arrumar interacao entre bola e plataforma
+        
         if (ball.body.overlaps(platform.body) &&
                 ball.body.y + ball.body.height/2 > platform.body.y + platform.body.height) {
-            ball.velocity.y *= -1;
+            Vector2 d = new Vector2(
+                    (ball.body.x + ball.body.width / 2) - (platform.body.x + platform.body.width / 2),
+                    (ball.body.y + ball.body.height / 2) - (platform.body.y + platform.body.height / 2)
+            );
+            ball.velocity = d.nor().scl(ball.norm);
             ball.body.y = platform.body.y + platform.body.height;
         }
 
@@ -86,8 +92,8 @@ public class GameController {
                 com.mygdx.brickbreaker.models.Brick brick = (Brick) b;
                 if (ball.body.overlaps(brick.body)) {
                     // Vertical
-                    if (ball.body.y + ball.body.height / 2 <= platform.body.y ||
-                            ball.body.y + ball.body.height / 2 >= platform.body.y + platform.body.height) {
+                    if (ball.body.y + ball.body.height / 2 <= brick.body.y ||
+                            ball.body.y + ball.body.height / 2 >= brick.body.y + brick.body.height) {
                         ball.velocity.y *= -1;
                      }
                     // Horizontal

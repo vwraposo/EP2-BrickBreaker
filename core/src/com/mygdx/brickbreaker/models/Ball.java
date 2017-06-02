@@ -9,6 +9,7 @@ import com.badlogic.gdx.math.Vector2;
 
 public class Ball extends Body {
     public Vector2 velocity;
+    public final float norm = 1120;
 
     public Ball (String img) {
         super(img);
