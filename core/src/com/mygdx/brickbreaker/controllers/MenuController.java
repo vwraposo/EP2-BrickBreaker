@@ -51,10 +51,12 @@ public class MenuController {
         phrase.setText(game.font, "Tap anywhere to begin!");
 
         // Menu
+        stage = new Stage();
         Gdx.input.setInputProcessor(stage);
         textButtonStyle = new TextButton.TextButtonStyle();
         textButtonStyle.font = game.font;
         button = new TextButton("Button1", textButtonStyle);
+        stage.addActor(button);
     }
 
     public void render(float delta) {
@@ -75,6 +77,8 @@ public class MenuController {
 
 
         game.batch.end();
+
+        stage.draw();
 
         // Choose mode
         game.setMode(game.MODE_1);

@@ -1,6 +1,7 @@
 package com.mygdx.brickbreaker.controllers;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.GlyphLayout;
 import com.badlogic.gdx.math.Vector2;
@@ -20,6 +21,7 @@ public class GameController {
     private com.mygdx.brickbreaker.models.Body platform;
     private Array<Array<Brick>> bricks;
 
+    private Sound platformHit;
 
 
     public GameController(BrickBreaker game) {
@@ -29,8 +31,7 @@ public class GameController {
         this.platform = game.platform;
         this.bricks = game.bricks;
 
-
-
+        platformHit= Gdx.audio.newSound(Gdx.files.internal("platform_hit.ogg"));
     }
 
     public void render(float delta) {
@@ -91,6 +92,7 @@ public class GameController {
             );
             ball.velocity = d.nor().scl(ball.norm);
             ball.body.y = platform.body.y + platform.body.height;
+            platformHit.play();
         }
 
         // Ball and bricks interaction
@@ -119,6 +121,7 @@ public class GameController {
             Gdx.app.log("ENDGAME", "You won");
             game.gameWon();
             game.setState(game.FINISH);
+            dispose();
         }
 
         ball.move(delta);
@@ -143,6 +146,10 @@ public class GameController {
         if (platform.body.x < 0) platform.body.x = 0;
         else if (platform.body.x + 2 * platform.body.width / 2 > game.WIDTH)
             platform.body.x = game.WIDTH - platform.body.width;
+    }
+
+    private  void dispose() {
+        platformHit.dispose();
     }
 }
 
