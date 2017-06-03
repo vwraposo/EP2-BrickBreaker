@@ -87,7 +87,7 @@ public class GameController {
                 ball.body.y + ball.body.height/2 > platform.body.y + platform.body.height) {
             Vector2 d = new Vector2(
                     (ball.body.x + ball.body.width / 2) - (platform.body.x + platform.body.width / 2),
-                    (ball.body.y + ball.body.height / 2) - (platform.body.y + platform.body.height / 2)
+                    (ball.body.y + ball.body.height / 2) - (platform.body.y - 2*platform.body.height)
             );
             ball.velocity = d.nor().scl(ball.norm);
             ball.body.y = platform.body.y + platform.body.height;
@@ -99,8 +99,8 @@ public class GameController {
                 com.mygdx.brickbreaker.models.Brick brick = (Brick) b;
                 if (ball.body.overlaps(brick.body)) {
                     // Vertical
-                    if (ball.body.y + ball.body.height / 2 <= brick.body.y ||
-                            ball.body.y + ball.body.height / 2 >= brick.body.y + brick.body.height) {
+                    if (ball.body.y + ball.body.height / 2 < brick.body.y ||
+                            ball.body.y + ball.body.height / 2 > brick.body.y + brick.body.height) {
                         ball.velocity.y *= -1;
                      }
                     // Horizontal

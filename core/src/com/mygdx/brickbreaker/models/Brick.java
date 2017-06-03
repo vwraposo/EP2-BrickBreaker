@@ -11,8 +11,8 @@ import java.lang.reflect.Array;
  */
 
 public class Brick {
-    public static final Integer width = 75;
-    public static final Integer height = 30;
+    public static final Integer width = 200;
+    public static final Integer height = 90;
 
     private Texture[] images;
     public Rectangle body;
@@ -21,12 +21,14 @@ public class Brick {
 
     public Brick (Integer lives) {
         this.body = new Rectangle();
-        body.height = 60;
-        body.width = 150;
+        body.height = height;
+        body.width = width;
 
         this.lives = lives;
         images = new Texture[3];
         images[0] = new Texture(Gdx.files.internal("brick_easy.png"));
+        images[1] = new Texture(Gdx.files.internal("brick_medium.png"));
+        images[2] = new Texture(Gdx.files.internal("brick_hard.png"));
     }
 
     public Texture getImage() {
