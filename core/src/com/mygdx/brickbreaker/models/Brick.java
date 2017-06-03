@@ -19,10 +19,10 @@ public class Brick {
     private Integer lives;
 
 
-    public Brick (Integer lives) {
+    public Brick (Integer lives, float w, float h) {
         this.body = new Rectangle();
-        body.height = height;
-        body.width = width;
+        body.height = h;
+        body.width = w;
 
         this.lives = lives;
         images = new Texture[3];

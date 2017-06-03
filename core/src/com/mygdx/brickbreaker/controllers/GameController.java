@@ -44,8 +44,7 @@ public class GameController {
         game.batch.draw(platform.image, platform.body.x, platform.body.y);
 
         for (Brick brick : bricks)
-            game.batch.draw(brick.getImage(), brick.body.x, brick.body.y);
-
+            game.batch.draw(brick.getImage(), brick.body.x, brick.body.y, brick.body.width, brick.body.height);
 
         game.batch.end();
 
@@ -105,6 +104,7 @@ public class GameController {
             Brick brick = iter.next();
             if (ball.body.overlaps(brick.body)) {
                 // Vertical
+                //TODO: Melhorar colisao
                 if (ball.body.y + ball.body.height / 2 < brick.body.y ||
                         ball.body.y + ball.body.height / 2 > brick.body.y + brick.body.height) {
                     ball.velocity.y *= -1;

@@ -35,9 +35,9 @@ public class EndGameController {
         game.batch.draw(game.ball.image, game.ball.body.x, game.ball.body.y);
         game.batch.draw(game.platform.image, game.platform.body.x, game.platform.body.y);
 
-        for (Brick brick : bricks) {
-                game.batch.draw(brick.getImage(), brick.body.x, brick.body.y);
-        }
+        for (Brick brick : bricks)
+            game.batch.draw(brick.getImage(), brick.body.x, brick.body.y, brick.body.width, brick.body.height);
+
 
 
         if (game.result())
