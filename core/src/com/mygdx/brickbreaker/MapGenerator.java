@@ -9,7 +9,7 @@ import com.mygdx.brickbreaker.models.Brick;
 
 public class MapGenerator {
 
-    public static Array<Array<Brick>> getMap(BrickBreaker game, int level) {
+    public static Array<Brick> getMap(BrickBreaker game, int level) {
         switch (level) {
             case 1:
                 return map1(game);
@@ -21,20 +21,17 @@ public class MapGenerator {
         }
     }
 
-    private static Array<Array<Brick>> map1(BrickBreaker game) {
-        Array<Array<Brick>> map = new Array<Array<Brick>>();
+    private static Array<Brick> map1(BrickBreaker game) {
+        Array<Brick> map = new Array<Brick>();
 
-        int space = game.WIDTH / 18;
+        int space = game.WIDTH / 38;
         int h = game.HEIGHT - space - Brick.height;
-        for (int i = 0; i < 6; i++) {
-            map.add(new Array<Brick>());
-        }
-        for (Array row : map){
-            for (int i = 0; i < 7; i++) {
-                Brick brick = new Brick(1);
-                brick.body.x = i *(Brick.width + space) + space;
-                brick.body.y = h;
-                row.add(brick);
+        for (int i = 0; i < 9; i++) {
+            for (int j = 0; j < 6; j++) {
+                    Brick brick = new Brick(1);
+                    brick.body.x = j *(Brick.width + space) + space;
+                    brick.body.y = h;
+                    map.add(brick);
             }
             h -= Brick.height + space;
         }
@@ -42,30 +39,24 @@ public class MapGenerator {
         return map;
     }
 
-    private static Array<Array<Brick>> map2(BrickBreaker game) {
-        Array<Array<Brick>> map = new Array<Array<Brick>>();
+    private static Array<Brick> map2(BrickBreaker game) {
+        Array<Brick> map = new Array<Brick>();
 
-        int space = game.WIDTH / 16;
-        int h = game.HEIGHT - space - Brick.height / 2;
-        for (int i = 0; i < 8; i++) {
-            map.add(new Array<Brick>());
-        }
-        int k = 1;
-        for (Array row : map){
-            for (int i = 0; i < k; i++) {
+        int space = game.WIDTH / 36;
+        int h = game.HEIGHT - space - Brick.height;
+        for (int i = 0; i < 6; i++) {
+            for (int j = 0; j < i+1; j++) {
                 int lives = 1;
-                if (i < 2)
+                if (j < 2)
                     lives = 3;
-                else if (i < 4)
+                else if (j < 4)
                     lives = 2;
-
                 Brick brick = new Brick(lives);
-                brick.body.x = i *(Brick.width / 2 + space) + space;
+                brick.body.x = j *(Brick.width + space) + space;
                 brick.body.y = h;
-                row.add(brick);
+                map.add(brick);
             }
-            k++;
-            h -= Brick.height / 2 + space;
+            h -= Brick.height + space;
         }
 
         return map;

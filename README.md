@@ -6,15 +6,15 @@ Projeto de Exercício-Programa para a matéria MAC0463 - Computação Móvel | I
 - Victor Wichmann Raposo - 9298020
 
 ## TODO
-[x] - 1 
+- [x]  1 
 
-[x] - 2
+- [x]  2
 
-[x] - 3 (Mas podemos modificar)
+- [x]  3
 
-[ ] - 4
+- [x]  4
 
-[ ] - 5
+- [x] 5
 
 ## Ideias
 > - Fácil (2): Highscore e mais um continente à sua escolha (áudio acho que poderia ter independentemente das escolhas)

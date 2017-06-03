@@ -14,7 +14,7 @@ public class EndGameController {
     final BrickBreaker game;
     private com.mygdx.brickbreaker.models.Ball ball;
     private com.mygdx.brickbreaker.models.Body platform;
-    private Array<Array<Brick>> bricks;
+    private Array<Brick> bricks;
 
     private GlyphLayout message;
     public EndGameController(BrickBreaker game) {
@@ -35,11 +35,9 @@ public class EndGameController {
         game.batch.draw(game.ball.image, game.ball.body.x, game.ball.body.y);
         game.batch.draw(game.platform.image, game.platform.body.x, game.platform.body.y);
 
-        for (Array row : game.bricks)
-            for (Object b : row) {
-                com.mygdx.brickbreaker.models.Brick brick = (Brick) b;
+        for (Brick brick : bricks) {
                 game.batch.draw(brick.getImage(), brick.body.x, brick.body.y);
-            }
+        }
 
 
         if (game.result())

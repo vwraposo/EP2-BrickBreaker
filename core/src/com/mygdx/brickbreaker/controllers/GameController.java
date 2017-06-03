@@ -11,6 +11,8 @@ import com.mygdx.brickbreaker.BrickBreaker;
 import com.mygdx.brickbreaker.models.*;
 import com.mygdx.brickbreaker.models.Brick;
 
+import java.util.Iterator;
+
 /**
  * Created by vwraposo on 01/06/17.
  */
@@ -19,7 +21,7 @@ public class GameController {
     final BrickBreaker game;
     private com.mygdx.brickbreaker.models.Ball ball;
     private com.mygdx.brickbreaker.models.Body platform;
-    private Array<Array<Brick>> bricks;
+    private Array<Brick> bricks;
 
     private int acitve_bricks = 0;
 
@@ -34,10 +36,6 @@ public class GameController {
         this.bricks = game.bricks;
 
         platformHit= Gdx.audio.newSound(Gdx.files.internal("platform_hit.ogg"));
-
-        for (Array row: bricks)
-            for (Object b : row)
-                this.acitve_bricks++;
     }
 
     public void render(float delta) {
@@ -45,11 +43,9 @@ public class GameController {
         game.batch.draw(ball.image, ball.body.x, ball.body.y);
         game.batch.draw(platform.image, platform.body.x, platform.body.y);
 
-        for (Array row : bricks)
-            for (Object b : row) {
-                com.mygdx.brickbreaker.models.Brick brick = (com.mygdx.brickbreaker.models.Brick) b;
-                game.batch.draw(brick.getImage(), brick.body.x, brick.body.y);
-            }
+        for (Brick brick : bricks)
+            game.batch.draw(brick.getImage(), brick.body.x, brick.body.y);
+
 
         game.batch.end();
 
@@ -94,7 +90,7 @@ public class GameController {
                 ball.body.y + ball.body.height/2 > platform.body.y + platform.body.height) {
             Vector2 d = new Vector2(
                     (ball.body.x + ball.body.width / 2) - (platform.body.x + platform.body.width / 2),
-                    (ball.body.y + ball.body.height / 2) - (platform.body.y - 2*platform.body.height)
+                    (ball.body.y + ball.body.height / 2) - (platform.body.y - platform.body.height)
             );
             ball.velocity = d.nor().scl(ball.norm);
             ball.body.y = platform.body.y + platform.body.height;
@@ -103,32 +99,30 @@ public class GameController {
 
 
         // Ball and bricks interaction
-        for (Array row : bricks) {
-            for (Object b : row) {
-                com.mygdx.brickbreaker.models.Brick brick = (Brick) b;
-                if (ball.body.overlaps(brick.body)) {
-                    // Vertical
-                    if (ball.body.y + ball.body.height / 2 < brick.body.y ||
-                            ball.body.y + ball.body.height / 2 > brick.body.y + brick.body.height) {
-                        ball.velocity.y *= -1;
-                     }
-                    // Horizontal
-                    else {
-                        ball.velocity.x *= -1;
-                    }
 
-                    // Remove life
-                    if (brick.hit()) {
-                        row.removeValue(brick, true);
-                        this.acitve_bricks--;
-                    }
-
+        Iterator<Brick> iter = bricks.iterator();
+        while(iter.hasNext()) {
+            Brick brick = iter.next();
+            if (ball.body.overlaps(brick.body)) {
+                // Vertical
+                if (ball.body.y + ball.body.height / 2 < brick.body.y ||
+                        ball.body.y + ball.body.height / 2 > brick.body.y + brick.body.height) {
+                    ball.velocity.y *= -1;
                 }
+                // Horizontal
+                else {
+                    ball.velocity.x *= -1;
+                }
+
+                // Remove life
+                if (brick.hit()) {
+                    iter.remove();
+                }
+
             }
-            if (row.size == 0) bricks.removeValue(row, true);
         }
 
-        if (this.acitve_bricks == 0) {
+        if (bricks.size == 0) {
             Gdx.app.log("ENDGAME", "You won");
             game.gameWon();
             game.setState(game.FINISH);

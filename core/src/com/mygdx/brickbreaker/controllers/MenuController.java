@@ -38,7 +38,7 @@ public class MenuController {
         game.platform.body.y = game.HEIGHT / 8 - game.platform.body.height / 2;
 
         //TODO : Refatorar e transformar o mapa em um modelo, alem disso pensar no melhor jeito de salvar
-        game.bricks = MapGenerator.getMap(game, 1);
+        game.bricks = MapGenerator.getMap(game, 2);
 
         //Fundo Cinza
         game.batch.setColor(Color.LIGHT_GRAY);
@@ -65,12 +65,9 @@ public class MenuController {
         game.batch.draw(game.ball.image, game.ball.body.x, game.ball.body.y);
         game.batch.draw(game.platform.image, game.platform.body.x, game.platform.body.y);
 
-        for (Array row : game.bricks)
-            for (Object b : row) {
-                com.mygdx.brickbreaker.models.Brick brick = (Brick) b;
+        for (Brick brick : game.bricks) {
                 game.batch.draw(brick.getImage(), brick.body.x, brick.body.y);
-            }
-
+        }
 
         game.font.draw(game.batch, title, game.WIDTH/2 - title.width/2, 3*game.HEIGHT/4 - title.height/2);
         game.font.draw(game.batch, phrase, game.WIDTH/2 - phrase.width/2  , 3*game.HEIGHT/8 - phrase.height/2);

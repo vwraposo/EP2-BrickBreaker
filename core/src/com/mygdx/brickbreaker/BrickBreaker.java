@@ -26,7 +26,7 @@ public class BrickBreaker extends Game {
 	//Objetos do jogo
 	public com.mygdx.brickbreaker.models.Ball ball;
 	public Body platform;
-	public Array<Array<Brick>> bricks;
+	public Array<Brick> bricks;
 
 	// Estado do jogo
 	private Boolean victory = true;
