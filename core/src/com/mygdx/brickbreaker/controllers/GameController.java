@@ -21,6 +21,8 @@ public class GameController {
     private com.mygdx.brickbreaker.models.Body platform;
     private Array<Array<Brick>> bricks;
 
+    private int acitve_bricks = 0;
+
     private Sound platformHit;
 
 
@@ -32,6 +34,10 @@ public class GameController {
         this.bricks = game.bricks;
 
         platformHit= Gdx.audio.newSound(Gdx.files.internal("platform_hit.ogg"));
+
+        for (Array row: bricks)
+            for (Object b : row)
+                this.acitve_bricks++;
     }
 
     public void render(float delta) {
@@ -95,6 +101,7 @@ public class GameController {
             platformHit.play();
         }
 
+
         // Ball and bricks interaction
         for (Array row : bricks) {
             for (Object b : row) {
@@ -111,13 +118,17 @@ public class GameController {
                     }
 
                     // Remove life
-                    if (brick.hit()) row.removeValue(brick, true);
+                    if (brick.hit()) {
+                        row.removeValue(brick, true);
+                        this.acitve_bricks--;
+                    }
+
                 }
             }
             if (row.size == 0) bricks.removeValue(row, true);
         }
 
-        if (bricks.size == 0) {
+        if (this.acitve_bricks == 0) {
             Gdx.app.log("ENDGAME", "You won");
             game.gameWon();
             game.setState(game.FINISH);
