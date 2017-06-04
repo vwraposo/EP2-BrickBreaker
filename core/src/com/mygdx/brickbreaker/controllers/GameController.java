@@ -36,6 +36,7 @@ public class GameController {
         this.bricks = game.bricks;
 
         platformHit= Gdx.audio.newSound(Gdx.files.internal("platform_hit.ogg"));
+//        platformHit= Gdx.audio.newSound(Gdx.files.internal("bat_hit_ball.ogg"));
     }
 
     public void render(float delta) {
