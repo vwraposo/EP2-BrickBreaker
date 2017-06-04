@@ -31,4 +31,20 @@ public class Ball extends Body {
         this.body.x += velocity.x * delta;
         this.body.y += velocity.y * delta;
     }
+
+    public float hat () {
+        return this.body.y + this.body.height/2;
+    }
+
+    public float shoe () {
+        return this.body.y - this.body.height/2;
+    }
+
+    public float right () {
+        return this.body.x + this.body.width/2;
+    }
+
+    public float left () {
+        return this.body.x - this.body.width/2;
+    }
 }

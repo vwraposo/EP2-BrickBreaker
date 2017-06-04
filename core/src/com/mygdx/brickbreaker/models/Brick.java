@@ -18,6 +18,10 @@ public class Brick {
     public Rectangle body;
     private Integer lives;
 
+    public static final int TOP_LEFT_V = 1001;
+    public static final int TOP_RIGHT_V = 2002;
+    public static final int BOTTOM_LEFT_V = 3003;
+    public static final int BOTTOM_RIGHT_V = 4004;
 
     public Brick (Integer lives, float w, float h) {
         this.body = new Rectangle();
@@ -41,4 +45,19 @@ public class Brick {
         return false;
     }
 
+    public float hat () {
+        return this.body.y + this.body.height/2;
+    }
+
+    public float shoe () {
+        return this.body.y - this.body.height/2;
+    }
+
+    public float right () {
+        return this.body.x + this.body.width/2;
+    }
+
+    public float left () {
+        return this.body.x - this.body.width/2;
+    }
 }

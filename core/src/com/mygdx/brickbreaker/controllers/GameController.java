@@ -13,6 +13,8 @@ import com.mygdx.brickbreaker.models.Brick;
 
 import java.util.Iterator;
 
+import static com.badlogic.gdx.math.MathUtils.PI;
+
 /**
  * Created by vwraposo on 01/06/17.
  */
@@ -106,12 +108,31 @@ public class GameController {
             if (ball.body.overlaps(brick.body)) {
                 // Vertical
                 //TODO: Melhorar colisao
-                if (ball.body.y + ball.body.height / 2 < brick.body.y ||
-                        ball.body.y + ball.body.height / 2 > brick.body.y + brick.body.height) {
+
+                boolean ball_above = is_ball_above_brick(ball,brick);
+                boolean ball_beneath = is_ball_beneath_brick(ball,brick);
+                boolean ball_from_left = is_ball_on_left_of_brick(ball,brick);
+                boolean ball_from_right = is_ball_on_right_of_brick(ball,brick);
+
+                if (ball_above && ball_from_left) {
+                    Vector2 rotado = ball.velocity.rotate(-PI/4);
+                    rotado.y *= -1;
+                    ball.velocity = rotado.rotate(PI/4);
+                } else if (ball_above && ball_from_right) {
+                    Vector2 rotado = ball.velocity.rotate(PI/4);
+                    rotado.y *= -1;
+                    ball.velocity = rotado.rotate(-PI/4);
+                } else if (ball_beneath && ball_from_left) {
+                    Vector2 rotado = ball.velocity.rotate(PI/4 + PI);
+                    rotado.y *= -1;
+                    ball.velocity = rotado.rotate(-PI/4 - PI);
+                } else if (ball_beneath && ball_from_right) {
+                    Vector2 rotado = ball.velocity.rotate(PI/4 + PI/2);
+                    rotado.y *= -1;
+                    ball.velocity = rotado.rotate(-PI/4 - PI/2);
+                } else if (ball_above || ball_beneath) {
                     ball.velocity.y *= -1;
-                }
-                // Horizontal
-                else {
+                } else if (ball_from_left || ball_from_right) {
                     ball.velocity.x *= -1;
                 }
 
@@ -119,7 +140,6 @@ public class GameController {
                 if (brick.hit()) {
                     iter.remove();
                 }
-
             }
         }
 
@@ -131,6 +151,38 @@ public class GameController {
         }
 
         ball.move(delta);
+    }
+
+    private boolean is_ball_beneath_brick (Ball ball, Brick brick) {
+        return ball.hat() > brick.shoe() && (
+                        ball.left() < brick.right() ||
+                        ball.right() > brick.left()
+        );
+    }
+
+    private boolean is_ball_above_brick (Ball ball, Brick brick) {
+        return brick.hat() > ball.shoe() && (
+                ball.left() < brick.right() ||
+                        ball.right() > brick.left()
+        );
+    }
+
+    private boolean is_ball_on_left_of_brick (Ball ball, Brick brick) {
+        return ball.right() > brick.left() && (
+                ball.shoe() < brick.hat() ||
+                        ball.hat() > brick.shoe()
+        );
+    }
+
+    private boolean is_ball_on_right_of_brick (Ball ball, Brick brick) {
+        return brick.right() > ball.left() && (
+                ball.shoe() < brick.hat() ||
+                        ball.hat() > brick.shoe()
+        );
+    }
+
+    private void vertex_hit (Ball ball) {
+
     }
 
     private void inputProcessing() {
