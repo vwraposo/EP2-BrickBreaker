@@ -103,16 +103,25 @@ public class GameController {
         while(iter.hasNext()) {
             Brick brick = iter.next();
             if (ball.body.overlaps(brick.body)) {
+                Boolean is_under_or_above_height = (ball.body.y + ball.body.height / 2 < brick.body.y ||
+                        ball.body.y + ball.body.height / 2 > brick.body.y + brick.body.height);
+                Boolean is_under_or_above_width = (ball.body.x + ball.body.width/2 > brick.body.x ||
+                                ball.body.x + ball.body.width / 2 < brick.body.x + brick.body.width);
+
+                Boolean is_left_or_right_heigth = (ball.body.y + ball.body.height / 2 < brick.body.y + brick.body.height ||
+                        ball.body.y + ball.body.height / 2 > brick.body.y);
+                Boolean is_left_or_right_width = (ball.body.x + ball.body.width/2 < brick.body.x ||
+                        ball.body.x + ball.body.width / 2 > brick.body.x + brick.body.width);
                 // Vertical
-                //TODO: Melhorar colisao
-                if (ball.body.y + ball.body.height / 2 < brick.body.y ||
-                        ball.body.y + ball.body.height / 2 > brick.body.y + brick.body.height) {
+                if (is_under_or_above_height && is_under_or_above_width) {
+                    ball.velocity.y *= -1;
+                } else if (is_left_or_right_heigth && is_left_or_right_width) {
+                    ball.velocity.x *= -1;
+                } else {
+                    ball.velocity.x *= -1;
                     ball.velocity.y *= -1;
                 }
-                // Horizontal
-                else {
-                    ball.velocity.x *= -1;
-                }
+
 
                 // Remove life
                 if (brick.hit()) {

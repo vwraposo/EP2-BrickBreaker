@@ -37,7 +37,7 @@ public class MenuController {
         game.platform.body.x = game.WIDTH / 2 - game.platform.body.width / 2;
         game.platform.body.y = game.HEIGHT / 8 - game.platform.body.height / 2;
 
-        game.bricks = MapGenerator.getMap(game, 3);
+        game.bricks = MapGenerator.getMap(game, 2);
 
         //Fundo Cinza
         game.batch.setColor(Color.LIGHT_GRAY);
