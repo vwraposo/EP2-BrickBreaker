@@ -63,8 +63,8 @@ public class EndGameController {
 
     private void setHomeButton() {
         ImageButton.ImageButtonStyle style = new ImageButton.ImageButtonStyle();
-        style.imageUp = new TextureRegionDrawable(new TextureRegion(new Texture(Gdx.files.internal("play_up.png"))));
-        style.imageDown = new TextureRegionDrawable(new TextureRegion(new Texture(Gdx.files.internal("play_down.png"))));
+        style.imageUp = new TextureRegionDrawable(new TextureRegion(new Texture(Gdx.files.internal("home_up.png"))));
+        style.imageDown = new TextureRegionDrawable(new TextureRegion(new Texture(Gdx.files.internal("home_down.png"))));
 
         home = new ImageButton(style);
         home.setPosition(game.WIDTH / 2 - 5*home.getWidth() / 4, 3*game.HEIGHT / 8 - home.getHeight() / 2);
@@ -78,6 +78,7 @@ public class EndGameController {
             public void touchUp (InputEvent event, float x, float y, int pointer, int button) {
                 Gdx.app.log("BUTTON", "up");
                 game.batch.setColor(Color.LIGHT_GRAY);
+                game.startGame();
                 game.setState(game.MENU);
             }
         });
@@ -86,8 +87,8 @@ public class EndGameController {
 
     private void setReplayButton() {
         ImageButton.ImageButtonStyle style = new ImageButton.ImageButtonStyle();
-        style.imageUp = new TextureRegionDrawable(new TextureRegion(new Texture(Gdx.files.internal("play_up.png"))));
-        style.imageDown = new TextureRegionDrawable(new TextureRegion(new Texture(Gdx.files.internal("play_down.png"))));
+        style.imageUp = new TextureRegionDrawable(new TextureRegion(new Texture(Gdx.files.internal("replay_up.png"))));
+        style.imageDown = new TextureRegionDrawable(new TextureRegion(new Texture(Gdx.files.internal("replay_down.png"))));
 
         replay = new ImageButton(style);
         replay.setPosition(game.WIDTH / 2 + replay.getWidth() / 4, 3*game.HEIGHT / 8 - replay.getHeight() / 2);
@@ -101,6 +102,7 @@ public class EndGameController {
             public void touchUp (InputEvent event, float x, float y, int pointer, int button) {
                 Gdx.app.log("BUTTON", "up");
                 game.batch.setColor(Color.WHITE);
+                game.startGame();
                 game.setState(game.GAME);
             }
         });

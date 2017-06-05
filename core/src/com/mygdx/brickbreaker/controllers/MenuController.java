@@ -25,34 +25,21 @@ import com.mygdx.brickbreaker.models.Brick;
 
 public class MenuController {
     final BrickBreaker game;
-    private static GlyphLayout title;
-    private static GlyphLayout phrase;
+    private static GlyphLayout title1;
+    private static GlyphLayout title2;
     public Stage stage;
     private ImageButton button;
 
     public MenuController (BrickBreaker game) {
         this.game = game;
-
-        game.ball = new com.mygdx.brickbreaker.models.Ball("ball.png");
-        game.platform = new Body("bar.png");
-
-        game.ball.body.x = game.WIDTH / 2 - game.ball.body.width / 2;
-        game.ball.body.y = game.HEIGHT / 8 + game.platform.body.height / 2;
-
-        game.platform.body.x = game.WIDTH / 2 - game.platform.body.width / 2;
-        game.platform.body.y = game.HEIGHT / 8 - game.platform.body.height / 2;
-
-        game.bricks = MapGenerator.getMap(game, 2);
-
+        game.startGame();
         //Fundo Cinza
         game.batch.setColor(Color.LIGHT_GRAY);
 
         // Strings
-        title = new GlyphLayout();
-        title.setText(game.font, "Brick Breaker");
-
-        phrase = new GlyphLayout();
-        phrase.setText(game.font, "Tap anywhere to begin!");
+        title1 = new GlyphLayout();
+        title1.setText(game.font, "BRICK");
+        title2 = new GlyphLayout(game.font, "BREAKER");
 
         // Menu
         stage = new Stage();
@@ -70,7 +57,9 @@ public class MenuController {
             game.batch.draw(brick.getImage(), brick.body.x, brick.body.y, brick.body.width, brick.body.height);
 
 
-        game.font.draw(game.batch, title, game.WIDTH/2 - title.width/2, 3*game.HEIGHT/4 - title.height/2);
+        game.font.draw(game.batch, title1, game.WIDTH/2 - title1.width/2, game.HEIGHT - 2*title1.height);
+        game.font.draw(game.batch, title2, game.WIDTH/2 - title2.width/2, game.HEIGHT - 2*title1.height
+                - game.HEIGHT/38 - title2.height);
 
         game.batch.end();
 

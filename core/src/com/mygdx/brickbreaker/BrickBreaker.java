@@ -39,9 +39,9 @@ public class BrickBreaker extends Game {
     	batch = new SpriteBatch();
 
 		// Set up das fontes
-        FreeTypeFontGenerator generator = new FreeTypeFontGenerator(Gdx.files.internal("Roboto-Regular.ttf"));
+        FreeTypeFontGenerator generator = new FreeTypeFontGenerator(Gdx.files.internal("clutchee.ttf"));
         FreeTypeFontGenerator.FreeTypeFontParameter parameter = new FreeTypeFontGenerator.FreeTypeFontParameter();
-        parameter.size = 80;
+        parameter.size = 256;
 
         parameter.shadowColor = Color.BLACK;
         font = generator.generateFont(parameter); // font size 12 pixels
@@ -56,6 +56,18 @@ public class BrickBreaker extends Game {
         this.setScreen(new GameScreen(this));
 	}
 
+	public void startGame() {
+        ball = new com.mygdx.brickbreaker.models.Ball("ball.png");
+        platform = new Body("bar.png");
+
+        ball.body.x = WIDTH / 2 - ball.body.width / 2;
+        ball.body.y = HEIGHT / 8 + platform.body.height / 2;
+
+        platform.body.x = WIDTH / 2 - platform.body.width / 2;
+        platform.body.y = HEIGHT / 8 - platform.body.height / 2;
+
+        bricks = MapGenerator.getMap(this, 2);
+    }
 
 
 	@Override
