@@ -27,8 +27,8 @@ public class MenuController {
     final BrickBreaker game;
     private static GlyphLayout title;
     private static GlyphLayout phrase;
-    private Stage stage;
-    ImageButton button;
+    public Stage stage;
+    private ImageButton button;
 
     public MenuController (BrickBreaker game) {
         this.game = game;
@@ -75,8 +75,6 @@ public class MenuController {
         game.batch.end();
 
         stage.draw();
-
-        game.setMode(game.MODE_1);
     }
 
     private void setPlayButton() {

@@ -13,15 +13,12 @@ import com.mygdx.brickbreaker.models.Brick;
 import com.sun.org.apache.xpath.internal.operations.Bool;
 
 public class BrickBreaker extends Game {
-	public final Integer MODE_1 = 1;
-	public final Integer MODE_2 = 2;
 
     public SpriteBatch batch;
     public BitmapFont font;
 	public OrthographicCamera camera;
 	public final Integer WIDTH = 1440;
 	public final Integer HEIGHT = 2560;
-	private Integer mode;
 
 	//Objetos do jogo
 	public com.mygdx.brickbreaker.models.Ball ball;
@@ -73,19 +70,11 @@ public class BrickBreaker extends Game {
 	}
 
 	public void setState(Integer state) {
-		this.state = state;
+        this.state = state;
 	}
 
 	public Integer getState() {
 		return state;
-	}
-
-	public void setMode(Integer mode) {
-		this.mode = mode;
-	}
-
-	public Integer getMode() {
-		return mode;
 	}
 
 	public void gameWon() {

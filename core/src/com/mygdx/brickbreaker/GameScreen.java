@@ -18,10 +18,6 @@ public class GameScreen implements Screen {
     private EndGameController endGameController;
 
 
-
-
-
-
     public GameScreen(final BrickBreaker game) {
         this.game = game;
         this.menuController = new MenuController(this.game);
@@ -40,6 +36,7 @@ public class GameScreen implements Screen {
 
         if (game.getState() == game.MENU) {
             Gdx.app.log("STATE", "In menu");
+            Gdx.input.setInputProcessor(menuController.stage);
             menuController.render(delta);
         }
         else if(game.getState() == game.GAME) {
@@ -48,6 +45,7 @@ public class GameScreen implements Screen {
         }
         else {
             Gdx.app.log("STATE", "End Game");
+            Gdx.input.setInputProcessor(endGameController.stage);
             endGameController.render(delta);
         }
 

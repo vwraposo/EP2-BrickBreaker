@@ -137,19 +137,17 @@ public class GameController {
 
     private void inputProcessing() {
         // Separar os modos de input
-        if(game.getMode() == game.MODE_1) {
-            if (Gdx.input.isTouched()) {
-                Vector3 touchPos = new Vector3();
-                touchPos.set(Gdx.input.getX(), Gdx.input.getY(), 0);
-                game.camera.unproject(touchPos);
-                // Limitando altura do toque
-                Gdx.app.log("TOUCH", touchPos.toString());
-                if (touchPos.y <= game.HEIGHT / 4)
-                    game.platform.body.x = touchPos.x - game.platform.body.width / 2;
-            }
+
+        if (Gdx.input.isTouched()) {
+            Vector3 touchPos = new Vector3();
+            touchPos.set(Gdx.input.getX(), Gdx.input.getY(), 0);
+            game.camera.unproject(touchPos);
+            // Limitando altura do toque
+            Gdx.app.log("TOUCH", touchPos.toString());
+            if (touchPos.y <= game.HEIGHT / 4)
+                game.platform.body.x = touchPos.x - game.platform.body.width / 2;
         }
-        else {
-        }
+
         // Limitando laterais
         if (game.platform.body.x < 0) game.platform.body.x = 0;
         else if (game.platform.body.x + 2 * game.platform.body.width / 2 > game.WIDTH)
