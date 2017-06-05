@@ -3,9 +3,15 @@ package com.mygdx.brickbreaker.controllers;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
+import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.GlyphLayout;
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.badlogic.gdx.scenes.scene2d.InputEvent;
+import com.badlogic.gdx.scenes.scene2d.InputListener;
 import com.badlogic.gdx.scenes.scene2d.Stage;
+import com.badlogic.gdx.scenes.scene2d.ui.ImageButton;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
+import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import com.badlogic.gdx.utils.Array;
 import com.mygdx.brickbreaker.BrickBreaker;
 import com.mygdx.brickbreaker.GameScreen;
@@ -22,8 +28,7 @@ public class MenuController {
     private static GlyphLayout title;
     private static GlyphLayout phrase;
     private Stage stage;
-    TextButton button;
-    TextButton.TextButtonStyle textButtonStyle;
+    ImageButton button;
 
     public MenuController (BrickBreaker game) {
         this.game = game;
@@ -52,10 +57,7 @@ public class MenuController {
         // Menu
         stage = new Stage();
         Gdx.input.setInputProcessor(stage);
-        textButtonStyle = new TextButton.TextButtonStyle();
-        textButtonStyle.font = game.font;
-        button = new TextButton("Button1", textButtonStyle);
-        stage.addActor(button);
+        setPlayButton();
     }
 
     public void render(float delta) {
@@ -69,20 +71,37 @@ public class MenuController {
 
 
         game.font.draw(game.batch, title, game.WIDTH/2 - title.width/2, 3*game.HEIGHT/4 - title.height/2);
-        game.font.draw(game.batch, phrase, game.WIDTH/2 - phrase.width/2  , 3*game.HEIGHT/8 - phrase.height/2);
-
 
         game.batch.end();
 
         stage.draw();
 
-        // Choose mode
         game.setMode(game.MODE_1);
-        if (Gdx.input.isTouched()) {
-            game.batch.setColor(Color.WHITE);
-            game.setState(game.GAME);
-        }
     }
+
+    private void setPlayButton() {
+        ImageButton.ImageButtonStyle style = new ImageButton.ImageButtonStyle();
+        style.imageUp = new TextureRegionDrawable(new TextureRegion(new Texture(Gdx.files.internal("play_up.png"))));
+        style.imageDown = new TextureRegionDrawable(new TextureRegion(new Texture(Gdx.files.internal("play_down.png"))));
+
+        button = new ImageButton(style);
+        button.setPosition(game.WIDTH / 2 - button.getWidth() / 2, 3*game.HEIGHT / 8 - button.getHeight() / 2);
+        button.addListener(new InputListener() {
+            public boolean touchDown (InputEvent event, float x, float y, int pointer, int button) {
+                Gdx.app.log("BUTTON", "down");
+                Gdx.input.vibrate(20);
+                return true;
+            }
+
+            public void touchUp (InputEvent event, float x, float y, int pointer, int button) {
+                Gdx.app.log("BUTTON", "up");
+                game.batch.setColor(Color.WHITE);
+                game.setState(game.GAME);
+            }
+        });
+        stage.addActor(button);
+    }
+
 
 
 }
