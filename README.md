@@ -16,12 +16,11 @@ Projeto de Exercício-Programa para a matéria MAC0463 - Computação Móvel | I
 
 - [x] 5
 
-## Ideias
-> - Fácil (2): Highscore e mais um continente à sua escolha (áudio acho que poderia ter independentemente das escolhas)
-> - Médio (1): Power-ups/downs
-> - Difícil (1): Flipper
-> DANIEL, João
+- [] Sons e musica (Fácil)
 
-## Coisas para nos atentarmos:
-- modo tela cheia? Acho importante
-- orientação **fixa** (acho retrato preferível)
+- [x] Diferentes tijolos (Facil) - Podemos acrescentar mais
+
+- [ ] Blocos moveis (Medio)
+
+- [ ] Difícil (1): Flipper?
+
