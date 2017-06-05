@@ -12,18 +12,11 @@ import com.mygdx.brickbreaker.models.Brick;
 
 public class EndGameController {
     final BrickBreaker game;
-    private com.mygdx.brickbreaker.models.Ball ball;
-    private com.mygdx.brickbreaker.models.Body platform;
-    private Array<Brick> bricks;
 
     private GlyphLayout message;
     public EndGameController(BrickBreaker game) {
         // Locais
         this.game = game;
-        this.ball = game.ball;
-        this.platform = game.platform;
-        this.bricks = game.bricks;
-
         // Strings
         message = new GlyphLayout();
     }
@@ -35,7 +28,7 @@ public class EndGameController {
         game.batch.draw(game.ball.image, game.ball.body.x, game.ball.body.y);
         game.batch.draw(game.platform.image, game.platform.body.x, game.platform.body.y);
 
-        for (Brick brick : bricks)
+        for (Brick brick : game.bricks)
             game.batch.draw(brick.getImage(), brick.body.x, brick.body.y, brick.body.width, brick.body.height);
 
 
@@ -45,7 +38,6 @@ public class EndGameController {
         else
             message.setText(game.font, "You Lost");
         game.font.draw(game.batch, message, game.WIDTH/2 - message.width/2, 3*game.HEIGHT/4 - message.height/2);
-
 
 
         game.batch.end();

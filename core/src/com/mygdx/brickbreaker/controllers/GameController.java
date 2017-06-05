@@ -19,11 +19,7 @@ import java.util.Iterator;
 
 public class GameController {
     final BrickBreaker game;
-    private com.mygdx.brickbreaker.models.Ball ball;
-    private com.mygdx.brickbreaker.models.Body platform;
-    private Array<Brick> bricks;
 
-    private int acitve_bricks = 0;
 
     private Sound platformHit;
 
@@ -31,19 +27,17 @@ public class GameController {
     public GameController(BrickBreaker game) {
         // Locais
         this.game = game;
-        this.ball = game.ball;
-        this.platform = game.platform;
-        this.bricks = game.bricks;
+       
 
         platformHit= Gdx.audio.newSound(Gdx.files.internal("platform_hit.ogg"));
     }
 
     public void render(float delta) {
         game.batch.begin();
-        game.batch.draw(ball.image, ball.body.x, ball.body.y);
-        game.batch.draw(platform.image, platform.body.x, platform.body.y);
+        game.batch.draw(game.ball.image, game.ball.body.x, game.ball.body.y);
+        game.batch.draw(game.platform.image, game.platform.body.x, game.platform.body.y);
 
-        for (Brick brick : bricks)
+        for (Brick brick : game.bricks)
             game.batch.draw(brick.getImage(), brick.body.x, brick.body.y, brick.body.width, brick.body.height);
 
         game.batch.end();
@@ -60,24 +54,24 @@ public class GameController {
         // Collisions
         Gdx.app.log("Movimento", "processando Objetos");
         // Left wall
-        if(ball.body.x <= 0) {
+        if(game.ball.body.x <= 0) {
             //sound.play();
-            ball.velocity.x *= -1;
-            ball.body.x = 0;
+            game.ball.velocity.x *= -1;
+            game.ball.body.x = 0;
         }
         // Right wall
-        else if(ball.body.x >= game.WIDTH - ball.body.width / 2) {
+        else if(game.ball.body.x >= game.WIDTH - game.ball.body.width / 2) {
             //sound.play();
-            ball.velocity.x *= -1;
-            ball.body.x = game.WIDTH - ball.body.width / 2;
+            game.ball.velocity.x *= -1;
+            game.ball.body.x = game.WIDTH - game.ball.body.width / 2;
         }
         // Top wall
-        else if(ball.body.y >= game.HEIGHT - ball.body.height) {
+        else if(game.ball.body.y >= game.HEIGHT - game.ball.body.height) {
             //sound.play();
-            ball.velocity.y *= -1;
-            ball.body.y = game.HEIGHT - ball.body.height;
+            game.ball.velocity.y *= -1;
+            game.ball.body.y = game.HEIGHT - game.ball.body.height;
         }
-        else if (ball.body.y <= 0) {
+        else if (game.ball.body.y <= 0) {
             // You lost
             Gdx.app.log("ENDGAME", "You lost");
             game.gameLost();
@@ -85,41 +79,41 @@ public class GameController {
             game.setState(game.FINISH);
         }
 
-        if (ball.body.overlaps(platform.body) &&
-                ball.body.y + ball.body.height/2 > platform.body.y + platform.body.height) {
+        if (game.ball.body.overlaps(game.platform.body) &&
+                game.ball.body.y + game.ball.body.height/2 > game.platform.body.y + game.platform.body.height) {
             Vector2 d = new Vector2(
-                    (ball.body.x + ball.body.width / 2) - (platform.body.x + platform.body.width / 2),
-                    (ball.body.y + ball.body.height / 2) - (platform.body.y - platform.body.height)
+                    (game.ball.body.x + game.ball.body.width / 2) - (game.platform.body.x + game.platform.body.width / 2),
+                    (game.ball.body.y + game.ball.body.height / 2) - (game.platform.body.y - game.platform.body.height)
             );
-            ball.velocity = d.nor().scl(ball.norm);
-            ball.body.y = platform.body.y + platform.body.height;
+            game.ball.velocity = d.nor().scl(game.ball.norm);
+            game.ball.body.y = game.platform.body.y + game.platform.body.height;
             platformHit.play();
         }
 
 
-        // Ball and bricks interaction
+        // Ball and game.bricks interaction
 
-        Iterator<Brick> iter = bricks.iterator();
+        Iterator<Brick> iter = game.bricks.iterator();
         while(iter.hasNext()) {
             Brick brick = iter.next();
-            if (ball.body.overlaps(brick.body)) {
-                Boolean is_under_or_above_height = (ball.body.y + ball.body.height / 2 < brick.body.y ||
-                        ball.body.y + ball.body.height / 2 > brick.body.y + brick.body.height);
-                Boolean is_under_or_above_width = (ball.body.x + ball.body.width/2 > brick.body.x ||
-                                ball.body.x + ball.body.width / 2 < brick.body.x + brick.body.width);
+            if (game.ball.body.overlaps(brick.body)) {
+                Boolean is_under_or_above_height = (game.ball.body.y + game.ball.body.height / 2 < brick.body.y ||
+                        game.ball.body.y + game.ball.body.height / 2 > brick.body.y + brick.body.height);
+                Boolean is_under_or_above_width = (game.ball.body.x + game.ball.body.width/2 > brick.body.x ||
+                                game.ball.body.x + game.ball.body.width / 2 < brick.body.x + brick.body.width);
 
-                Boolean is_left_or_right_heigth = (ball.body.y + ball.body.height / 2 < brick.body.y + brick.body.height ||
-                        ball.body.y + ball.body.height / 2 > brick.body.y);
-                Boolean is_left_or_right_width = (ball.body.x + ball.body.width/2 < brick.body.x ||
-                        ball.body.x + ball.body.width / 2 > brick.body.x + brick.body.width);
+                Boolean is_left_or_right_heigth = (game.ball.body.y + game.ball.body.height / 2 < brick.body.y + brick.body.height ||
+                        game.ball.body.y + game.ball.body.height / 2 > brick.body.y);
+                Boolean is_left_or_right_width = (game.ball.body.x + game.ball.body.width/2 < brick.body.x ||
+                        game.ball.body.x + game.ball.body.width / 2 > brick.body.x + brick.body.width);
                 // Vertical
                 if (is_under_or_above_height && is_under_or_above_width) {
-                    ball.velocity.y *= -1;
+                    game.ball.velocity.y *= -1;
                 } else if (is_left_or_right_heigth && is_left_or_right_width) {
-                    ball.velocity.x *= -1;
+                    game.ball.velocity.x *= -1;
                 } else {
-                    ball.velocity.x *= -1;
-                    ball.velocity.y *= -1;
+                    game.ball.velocity.x *= -1;
+                    game.ball.velocity.y *= -1;
                 }
 
 
@@ -131,14 +125,14 @@ public class GameController {
             }
         }
 
-        if (bricks.size == 0) {
+        if (game.bricks.size == 0) {
             Gdx.app.log("ENDGAME", "You won");
             game.gameWon();
             game.setState(game.FINISH);
             dispose();
         }
 
-        ball.move(delta);
+        game.ball.move(delta);
     }
 
     private void inputProcessing() {
@@ -151,15 +145,15 @@ public class GameController {
                 // Limitando altura do toque
                 Gdx.app.log("TOUCH", touchPos.toString());
                 if (touchPos.y <= game.HEIGHT / 4)
-                    platform.body.x = touchPos.x - platform.body.width / 2;
+                    game.platform.body.x = touchPos.x - game.platform.body.width / 2;
             }
         }
         else {
         }
         // Limitando laterais
-        if (platform.body.x < 0) platform.body.x = 0;
-        else if (platform.body.x + 2 * platform.body.width / 2 > game.WIDTH)
-            platform.body.x = game.WIDTH - platform.body.width;
+        if (game.platform.body.x < 0) game.platform.body.x = 0;
+        else if (game.platform.body.x + 2 * game.platform.body.width / 2 > game.WIDTH)
+            game.platform.body.x = game.WIDTH - game.platform.body.width;
     }
 
     private  void dispose() {
