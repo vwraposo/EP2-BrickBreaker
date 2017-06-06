@@ -50,9 +50,9 @@ public class EndGameController {
 
 
         if (game.result())
-            message.setText(game.font, "You Won!");
+            message.setText(game.font, "YOU WON!");
         else
-            message.setText(game.font, "You Lost");
+            message.setText(game.font, "YOU LOST");
         game.font.draw(game.batch, message, game.WIDTH/2 - message.width/2, 3*game.HEIGHT/4 - message.height/2);
 
 
@@ -78,7 +78,7 @@ public class EndGameController {
             public void touchUp (InputEvent event, float x, float y, int pointer, int button) {
                 Gdx.app.log("BUTTON", "up");
                 game.batch.setColor(Color.LIGHT_GRAY);
-                game.startGame();
+                game.startGame(0);
                 game.setState(game.MENU);
             }
         });
@@ -102,7 +102,7 @@ public class EndGameController {
             public void touchUp (InputEvent event, float x, float y, int pointer, int button) {
                 Gdx.app.log("BUTTON", "up");
                 game.batch.setColor(Color.WHITE);
-                game.startGame();
+                game.startGame(game.maps.getLevel());
                 game.setState(game.GAME);
             }
         });

@@ -1,39 +1,68 @@
-package com.mygdx.brickbreaker;
+package com.mygdx.brickbreaker.models;
 
 import com.badlogic.gdx.utils.Array;
-import com.mygdx.brickbreaker.models.Brick;
+import com.mygdx.brickbreaker.BrickBreaker;
 
 /**
- * Created by vwraposo on 30/05/17.
+ * Created by vwraposo on 06/06/17.
  */
 
-public class MapGenerator {
+public class Maps {
+    public static Integer total = 2;
+    private BrickBreaker game;
+    private Array<Brick>[] maps;
+    private Integer level;
 
-    public static Array<Brick> getMap(BrickBreaker game, int level) {
+    public Maps(BrickBreaker game, int level) {
+        this.game = game;
+        this.level = level;
+        maps = new Array[total];
+        for (int i = 0; i < total; i++)
+            maps[i] = newMap(i);
+    }
+
+    public Array<Brick> getMap() {
+        return maps[level];
+    }
+    
+    public Integer getLevel() {
+        return level;
+    }
+
+    public void nextLevel() {
+        level = (level + 1) % total;
+    }
+
+    public void previousLevel() {
+        level = (Math.abs(level - 1)) % total;
+    }
+
+
+    private Array<Brick> newMap(int level) {
         switch (level) {
+            case 0:
+                return map0();
             case 1:
-                return map1(game);
-            case 2:
-                return map2(game);
+                return map1();
             case 3:
-                return map3(game);
+                return map2();
             default:
                 //error
                 return null;
         }
     }
 
-    private static Array<Brick> map1(BrickBreaker game) {
+    private Array<Brick> map0() {
         Array<Brick> map = new Array<Brick>();
 
         int space = game.WIDTH / 38;
         int h = game.HEIGHT - space - Brick.height;
         for (int i = 0; i < 9; i++) {
             for (int j = 0; j < 6; j++) {
-                    Brick brick = new Brick(1, Brick.width, Brick.height);
-                    brick.body.x = j *(brick.body.width + space) + space;
-                    brick.body.y = h;
-                    map.add(brick);
+                Brick brick = new Brick(1, Brick.width, Brick.height);
+                brick.body.x = j *(brick.body.width + space) + space;
+                brick.body.y = h;
+                map.add(brick);
             }
             h -= Brick.height + space;
         }
@@ -41,7 +70,7 @@ public class MapGenerator {
         return map;
     }
 
-    private static Array<Brick> map2(BrickBreaker game) {
+    private Array<Brick> map1() {
         Array<Brick> map = new Array<Brick>();
 
         int space = game.WIDTH / 36;
@@ -64,7 +93,7 @@ public class MapGenerator {
         return map;
     }
 
-    private static Array<Brick> map3(BrickBreaker game) {
+    private Array<Brick> map2() {
         Array<Brick> map = new Array<Brick>();
 
         int space = game.WIDTH / 38;

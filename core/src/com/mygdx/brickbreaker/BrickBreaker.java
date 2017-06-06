@@ -10,6 +10,7 @@ import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGenerator;
 import com.badlogic.gdx.utils.Array;
 import com.mygdx.brickbreaker.models.Body;
 import com.mygdx.brickbreaker.models.Brick;
+import com.mygdx.brickbreaker.models.Maps;
 import com.sun.org.apache.xpath.internal.operations.Bool;
 
 public class BrickBreaker extends Game {
@@ -23,11 +24,13 @@ public class BrickBreaker extends Game {
 	//Objetos do jogo
 	public com.mygdx.brickbreaker.models.Ball ball;
 	public Body platform;
+    public Maps maps;
 	public Array<Brick> bricks;
 
 	// Estado do jogo
 	private Boolean victory = true;
 	private Integer state;
+
 	//Estados
 	public final Integer MENU = 0;
 	public final Integer GAME = 1;
@@ -54,9 +57,10 @@ public class BrickBreaker extends Game {
 		// Set up do estado
 		setState(MENU);
         this.setScreen(new GameScreen(this));
+
 	}
 
-	public void startGame() {
+	public void startGame(int level) {
         ball = new com.mygdx.brickbreaker.models.Ball("ball.png");
         platform = new Body("bar.png");
 
@@ -66,7 +70,8 @@ public class BrickBreaker extends Game {
         platform.body.x = WIDTH / 2 - platform.body.width / 2;
         platform.body.y = HEIGHT / 8 - platform.body.height / 2;
 
-        bricks = MapGenerator.getMap(this, 2);
+        maps = new Maps(this, level);
+        bricks = maps.getMap();
     }
 
 
@@ -80,6 +85,17 @@ public class BrickBreaker extends Game {
 		batch.dispose();
 		font.dispose();
 	}
+
+	public void nextLevel() {
+        maps.nextLevel();
+        bricks = maps.getMap();
+    }
+
+    public void previousLevel() {
+        maps.previousLevel();
+        Gdx.app.log("PREV", String.valueOf(maps.getLevel()));
+        bricks = maps.getMap();
+    }
 
 	public void setState(Integer state) {
         this.state = state;
