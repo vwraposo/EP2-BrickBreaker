@@ -96,6 +96,7 @@ public class GameController {
         Iterator<Brick> iter = game.bricks.iterator();
         while(iter.hasNext()) {
             Brick brick = iter.next();
+            brick.move(delta);
             if (game.ball.body.overlaps(brick.body)) {
                 Boolean is_under_or_above_height = (game.ball.body.y + game.ball.body.height / 2 < brick.body.y ||
                         game.ball.body.y + game.ball.body.height / 2 > brick.body.y + brick.body.height);

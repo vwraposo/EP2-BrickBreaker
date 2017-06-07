@@ -43,8 +43,20 @@ public class Brick {
         Gdx.app.log("BALL", "Move");
         body.x += velocity.x * delta;
         body.y += velocity.y * delta;
-        if (body.x <= limitX.x || body.x >= limitX.y) velocity.x *= -1;
-        if (body.y <= limitY.x || body.y >= limitY.y) velocity.y *= -1;
+        if (body.x < limitX.x) {
+            body.x = limitX.x;
+            velocity.x *= -1;
+        } else if (body.x > limitX.y){
+            body.x = limitX.y;
+            velocity.x *= -1;
+        }
+        if (body.y < limitY.x) {
+            body.y = limitY.x;
+            velocity.y *= -1;
+        } else if (body.y > limitY.y) {
+            body.y = limitY.y;
+            velocity.y *= -1;
+        }
     }
 
     public Texture getImage() {
