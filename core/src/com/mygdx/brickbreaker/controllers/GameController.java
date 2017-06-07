@@ -110,12 +110,21 @@ public class GameController {
                 // Vertical
                 if (is_under_or_above_height && is_under_or_above_width) {
                     game.ball.velocity.y *= -1;
+//                    if (game.ball.body.y > brick.body.y)
+//                        game.ball.body.y = brick.body.y + brick.body.height;
+//                    else
+//                        game.ball.body.y = brick.body.y - game.ball.body.height;
                 } else if (is_left_or_right_heigth && is_left_or_right_width) {
                     game.ball.velocity.x *= -1;
+//                    if (game.ball.body.x > brick.body.x)
+//                        game.ball.body.x = brick.body.x + brick.body.width;
+//                    else
+//                        game.ball.body.y = brick.body.x - game.ball.body.width;
                 } else {
                     game.ball.velocity.x *= -1;
                     game.ball.velocity.y *= -1;
                 }
+
 
 
                 // Remove life
