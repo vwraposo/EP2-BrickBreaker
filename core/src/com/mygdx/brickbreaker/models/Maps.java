@@ -1,5 +1,6 @@
 package com.mygdx.brickbreaker.models;
 
+import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.Array;
 import com.mygdx.brickbreaker.BrickBreaker;
 
@@ -24,7 +25,7 @@ public class Maps {
     public Array<Brick> getMap() {
         return maps[level];
     }
-    
+
     public Integer getLevel() {
         return level;
     }
@@ -59,8 +60,9 @@ public class Maps {
         int h = game.HEIGHT - space - Brick.height;
         for (int i = 0; i < 9; i++) {
             for (int j = 0; j < 6; j++) {
-                Brick brick = new Brick(1, Brick.width, Brick.height);
-                brick.body.x = j *(brick.body.width + space) + space;
+                Brick brick = new Brick(1, Brick.width, Brick.height, new Vector2(0, 0),
+                        new Vector2(0, game.WIDTH), new Vector2(0, game.HEIGHT));
+                brick.body.x = j *(Brick.width + space) + space;;
                 brick.body.y = h;
                 map.add(brick);
             }
@@ -82,7 +84,8 @@ public class Maps {
                     lives = 3;
                 else if (j < 4)
                     lives = 2;
-                Brick brick = new Brick(lives, Brick.width, Brick.height);
+                Brick brick = new Brick(lives, Brick.width, Brick.height, new Vector2(0, 0),
+                        new Vector2(0, game.WIDTH), new Vector2(0, game.HEIGHT));
                 brick.body.x = j *(brick.body.width + space) + space;
                 brick.body.y = h;
                 map.add(brick);
@@ -96,34 +99,34 @@ public class Maps {
     private Array<Brick> map2() {
         Array<Brick> map = new Array<Brick>();
 
-        int space = game.WIDTH / 38;
-        int h = game.HEIGHT;
-        for (int i = 0; i < 9; i++) {
-            if (i % 3 == 1) {
-                h -= 2*Brick.height + space;
-                for (int j = 0; j < 6; j++) {
-                    Brick brick = new Brick(2, 2* Brick.height, 2*Brick.height);
-                    brick.body.x = j * (brick.body.width + space) + 2*space;
-                    brick.body.y = h;
-                    map.add(brick);
-
-                }
-            } else if (i % 3 == 2) {
-                h -= Brick.height + space;
-                Brick brick = new Brick(3, game.WIDTH - space, Brick.height);
-                brick.body.x = space;
-                brick.body.y = h;
-                map.add(brick);
-            } else {
-                h -= Brick.height + space;
-                for (int j = 0; j < 6; j++) {
-                    Brick brick = new Brick(1, Brick.width, Brick.height);
-                    brick.body.x = j * (brick.body.width + space) + space;
-                    brick.body.y = h;
-                    map.add(brick);
-                }
-            }
-        }
+//        int space = game.WIDTH / 38;
+//        int h = game.HEIGHT;
+//        for (int i = 0; i < 9; i++) {
+//            if (i % 3 == 1) {
+//                h -= 2*Brick.height + space;
+//                for (int j = 0; j < 6; j++) {
+//                    Brick brick = new Brick(2, 2* Brick.height, 2*Brick.height);
+//                    brick.body.x = j * (brick.body.width + space) + 2*space;
+//                    brick.body.y = h;
+//                    map.add(brick);
+//
+//                }
+//            } else if (i % 3 == 2) {
+//                h -= Brick.height + space;
+//                Brick brick = new Brick(3, game.WIDTH - space, Brick.height);
+//                brick.body.x = space;
+//                brick.body.y = h;
+//                map.add(brick);
+//            } else {
+//                h -= Brick.height + space;
+//                for (int j = 0; j < 6; j++) {
+//                    Brick brick = new Brick(1, Brick.width, Brick.height);
+//                    brick.body.x = j * (brick.body.width + space) + space;
+//                    brick.body.y = h;
+//                    map.add(brick);
+//                }
+//            }
+//        }
 
         return map;
     }

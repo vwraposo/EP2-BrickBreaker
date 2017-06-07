@@ -10,6 +10,7 @@ import com.badlogic.gdx.scenes.scene2d.InputListener;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.ImageButton;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
+import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.mygdx.brickbreaker.BrickBreaker;
 import com.mygdx.brickbreaker.models.Brick;
 import com.mygdx.brickbreaker.models.Maps;
@@ -23,6 +24,8 @@ public class MenuController {
     private GlyphLayout title1;
     private GlyphLayout title2;
     private GlyphLayout level;
+
+    // Menu
     public Stage stage;
     private ImageButton button;
     private ImageButton next;
@@ -42,7 +45,7 @@ public class MenuController {
         level = new GlyphLayout(game.font, String.valueOf(game.maps.getLevel() + 1));
 
         // Menu
-        stage = new Stage();
+        stage = new Stage(game.viewp, game.batch);
         Gdx.input.setInputProcessor(stage);
         setPlayButton();
         setSelectButton();

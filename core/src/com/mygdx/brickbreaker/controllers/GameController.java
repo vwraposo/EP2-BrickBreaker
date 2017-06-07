@@ -24,20 +24,12 @@ public class GameController {
 
     private Sound platformHit;
 
-    private Music background_track;
-
 
     public GameController(BrickBreaker game) {
         // Locais
         this.game = game;
-       
 
         platformHit= Gdx.audio.newSound(Gdx.files.internal("platform_hit.ogg"));
-        background_track = Gdx.audio.newMusic(Gdx.files.internal("background_track.mp3"));
-
-        background_track.setVolume(0.42f);
-        background_track.setLooping(true);
-        background_track.play();
     }
 
     public void render(float delta) {
@@ -164,7 +156,6 @@ public class GameController {
 
     private  void dispose() {
         platformHit.dispose();
-        background_track.dispose();
     }
 }
 

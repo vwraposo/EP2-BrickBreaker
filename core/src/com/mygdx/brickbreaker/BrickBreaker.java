@@ -2,12 +2,14 @@ package com.mygdx.brickbreaker;
 
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGenerator;
 import com.badlogic.gdx.utils.Array;
+import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.mygdx.brickbreaker.models.Body;
 import com.mygdx.brickbreaker.models.Brick;
 import com.mygdx.brickbreaker.models.Maps;
@@ -18,6 +20,7 @@ public class BrickBreaker extends Game {
     public SpriteBatch batch;
     public BitmapFont font;
 	public OrthographicCamera camera;
+    public FitViewport viewp;
 	public final Integer WIDTH = 1440;
 	public final Integer HEIGHT = 2560;
 
@@ -35,6 +38,9 @@ public class BrickBreaker extends Game {
 	public final Integer MENU = 0;
 	public final Integer GAME = 1;
 	public final Integer FINISH = 2;
+
+	// Musica
+	private Music background_track;
 	
 	@Override
 	public void create () {
@@ -53,10 +59,18 @@ public class BrickBreaker extends Game {
 		// Set up da camera
 		camera = new OrthographicCamera();
 		camera.setToOrtho(false, WIDTH, HEIGHT);
+        viewp = new FitViewport(WIDTH, HEIGHT, camera);
 
 		// Set up do estado
 		setState(MENU);
         this.setScreen(new GameScreen(this));
+
+		// Musica
+		background_track = Gdx.audio.newMusic(Gdx.files.internal("background_track.mp3"));
+
+		background_track.setVolume(0.42f);
+		background_track.setLooping(true);
+		background_track.play();
 
 	}
 
@@ -84,6 +98,7 @@ public class BrickBreaker extends Game {
 	public void dispose () {
 		batch.dispose();
 		font.dispose();
+        background_track.dispose();
 	}
 
 	public void nextLevel() {

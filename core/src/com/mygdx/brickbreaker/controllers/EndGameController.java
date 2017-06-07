@@ -32,7 +32,7 @@ public class EndGameController {
         // Strings
         message = new GlyphLayout();
 
-        stage = new Stage();
+        stage = new Stage(game.viewp, game.batch);
         setHomeButton();
         setReplayButton();
     }
