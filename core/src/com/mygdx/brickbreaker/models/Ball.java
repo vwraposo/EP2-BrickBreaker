@@ -14,7 +14,7 @@ import static com.badlogic.gdx.math.MathUtils.sin;
 
 public class Ball extends Body {
     public Vector2 velocity;
-    public final float norm = 1120;
+    public final float norm = 1300;
 
     public Ball (String img) {
         super(img);
