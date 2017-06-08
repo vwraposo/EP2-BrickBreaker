@@ -23,6 +23,7 @@ public class GameController {
 
 
     private Sound platformHit;
+    private Sound bumperHit;
 
 
     public GameController(BrickBreaker game) {
@@ -30,6 +31,7 @@ public class GameController {
         this.game = game;
 
         platformHit= Gdx.audio.newSound(Gdx.files.internal("platform_hit.ogg"));
+        bumperHit = Gdx.audio.newSound(Gdx.files.internal("pinball_bumper_sound.mp3"));
     }
 
     public void render(float delta) {
@@ -102,7 +104,7 @@ public class GameController {
             if (game.ball.body.overlaps(brick.body)) {
                 if (brick.is_bumper()) {
                     game.ball.speed_up();
-                    // bumper sound play
+                    bumperHit.play();
                 }
                 Boolean is_under_or_above_height = (game.ball.body.y + game.ball.body.height / 2 < brick.body.y ||
                         game.ball.body.y + game.ball.body.height / 2 > brick.body.y + brick.body.height);
