@@ -42,6 +42,8 @@ public class GameController {
 
         for (Brick brick : game.bricks)
             game.batch.draw(brick.getImage(), brick.body.x, brick.body.y, brick.body.width, brick.body.height);
+        for (Brick special : game.specials)
+            game.batch.draw(special.getImage(), special.body.x, special.body.y, special.body.width, special.body.height);
 
         game.batch.end();
 
@@ -143,12 +145,21 @@ public class GameController {
             }
         }
 
+        // Specials
+        for (Special special : game.specials) {
+            if (game.ball.body.overlaps(special.body))
+                special.action(game);
+            special.move(delta);
+        }
+
+
         if (game.bricks.size == 0) {
             Gdx.app.log("ENDGAME", "You won");
             game.gameWon();
             game.setState(game.FINISH);
             dispose();
         }
+
 
         game.ball.move(delta);
     }

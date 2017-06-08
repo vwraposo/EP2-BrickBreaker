@@ -13,6 +13,7 @@ import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.mygdx.brickbreaker.models.Body;
 import com.mygdx.brickbreaker.models.Brick;
 import com.mygdx.brickbreaker.models.Maps;
+import com.mygdx.brickbreaker.models.Special;
 import com.sun.org.apache.xpath.internal.operations.Bool;
 
 public class BrickBreaker extends Game {
@@ -29,6 +30,7 @@ public class BrickBreaker extends Game {
 	public Body platform;
     public Maps maps;
 	public Array<Brick> bricks;
+	public Array<Special> specials;
 
 	// Estado do jogo
 	private Boolean victory = true;
@@ -76,7 +78,7 @@ public class BrickBreaker extends Game {
 
 	public void startGame(int level) {
         ball = new com.mygdx.brickbreaker.models.Ball("ball.png");
-        platform = new Body("bar.png");
+        platform = new Body("bar.png", 300, 50);
 
         ball.body.x = WIDTH / 2 - ball.body.width / 2;
         ball.body.y = HEIGHT / 8 + platform.body.height / 2;
@@ -86,6 +88,7 @@ public class BrickBreaker extends Game {
 
         maps = new Maps(this, level);
         bricks = maps.getMap();
+        specials = maps.getSpecial();
     }
 
 
@@ -104,12 +107,14 @@ public class BrickBreaker extends Game {
 	public void nextLevel() {
         maps.nextLevel();
         bricks = maps.getMap();
+        specials = maps.getSpecial();
     }
 
     public void previousLevel() {
         maps.previousLevel();
         Gdx.app.log("PREV", String.valueOf(maps.getLevel()));
         bricks = maps.getMap();
+        specials = maps.getSpecial();
     }
 
 	public void setState(Integer state) {

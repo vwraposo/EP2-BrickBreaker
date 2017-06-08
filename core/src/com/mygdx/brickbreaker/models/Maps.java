@@ -14,18 +14,24 @@ public class Maps {
     public static Integer total = 5;
     private BrickBreaker game;
     private Array<Brick>[] maps;
+    private Array<Special>[] specials;
     private Integer level;
 
     public Maps(BrickBreaker game, int level) {
         this.game = game;
         this.level = level;
         maps = new Array[total];
+        specials = new Array[total];
         for (int i = 0; i < total; i++)
-            maps[i] = newMap(i);
+            newMap(i);
     }
 
     public Array<Brick> getMap() {
         return maps[level];
+    }
+
+    public Array<Special> getSpecial() {
+        return specials[level];
     }
 
     public Integer getLevel() {
@@ -42,26 +48,24 @@ public class Maps {
     }
 
 
-    private Array<Brick> newMap(int level) {
+    private void newMap(int level) {
         switch (level) {
             case 0:
-                return map0();
+                map0();
             case 1:
-                return map1();
+                map1();
             case 2:
-                return map2();
+                map2();
             case 3:
-                return map3();
+                map3();
             case 4:
-                return map4();
-            default:
-                //error
-                return null;
+                map4();
         }
     }
 
-    private Array<Brick> map0() {
+    private void map0() {
         Array<Brick> map = new Array<Brick>();
+        Array<Special> sp = new Array<Special>();
 
         int space = game.WIDTH / 38;
         int h = game.HEIGHT - space - Brick.height;
@@ -76,12 +80,14 @@ public class Maps {
             h -= Brick.height + space;
         }
 
-        return map;
+        maps[0] = map;
+        specials[0] = sp;
     }
 
     // Tipos diferentes
-    private Array<Brick> map1() {
+    private void map1() {
         Array<Brick> map = new Array<Brick>();
+        Array<Special> sp = new Array<Special>();
 
         int space = game.WIDTH / 36;
         int h = game.HEIGHT - space - Brick.height;
@@ -101,12 +107,14 @@ public class Maps {
             h -= Brick.height + space;
         }
 
-        return map;
+        maps[1] = map;
+        specials[1] = sp;
     }
 
     // Formatos diferetnes
-    private Array<Brick> map2() {
+    private void map2() {
         Array<Brick> map = new Array<Brick>();
+        Array<Special> sp = new Array<Special>();
 
         int space = game.WIDTH / 38;
         int h = game.HEIGHT;
@@ -139,11 +147,13 @@ public class Maps {
             }
         }
 
-        return map;
+        maps[2] = map;
+        specials[2] = sp;
     }
 
     // Movimento
-    private Array<Brick> map3() {
+    private void map3() {
+        Array<Special> sp = new Array<Special>();
         Array<Brick> map = new Array<Brick>();
 
         int espaco_aereo = (int) (0.7 * game.HEIGHT);
@@ -162,21 +172,33 @@ public class Maps {
             map.add(brick);
         }
 
-        return map;
+        maps[3] = map;
+        specials[3] = sp;
     }
 
-    private Array<Brick> map4() {
+    private void map4() {
+        Array<Special> sp = new Array<Special>();
         Array<Brick> map = new Array<Brick>();
 
-        Brick bumper = new Brick(Brick.width,Brick.height,
+        Brick brick = new Brick(1, Brick.width, Brick.height,
+                new Vector2(0,0),
+                new Vector2(0,game.WIDTH),
+                new Vector2(0,game.HEIGHT));
+        brick.body.x = (game.WIDTH - brick.width)/4;
+        brick.body.y = (game.HEIGHT - brick.height)/4;
+
+        map.add(brick);
+
+        Special bumper = new Special(Special.BUMPER, 100,
                 new Vector2(0,0),
                 new Vector2(0,game.WIDTH),
                 new Vector2(0,game.HEIGHT));
         bumper.body.x = (game.WIDTH - bumper.width)/2;
         bumper.body.y = (game.HEIGHT - bumper.height)/2;
 
-        map.add(bumper);
+        sp.add(bumper);
 
-        return map;
+        maps[4] = map;
+        specials[4] = sp;
     }
 }

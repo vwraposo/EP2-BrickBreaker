@@ -17,7 +17,7 @@ public class Ball extends Body {
     public final float norm = 1300;
 
     public Ball (String img) {
-        super(img);
+        super(img, 60, 60);
 
         float ang =  random(- PI / 4, PI / 4);
         velocity = new Vector2();

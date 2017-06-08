@@ -13,16 +13,10 @@ public class Body {
     public final Texture image;
     public Rectangle body;
 
-    public Body (String img) {
+    public Body (String img, float w, float h) {
         image = new Texture(Gdx.files.internal(img));
         body = new Rectangle();
-        if (img == "bar.png") {
-            body.width = 300;
-            body.height = 50;
-        }
-        else {
-            body.width = 60;
-            body.height = 60;
-        }
+        body.width = w;
+        body.height = h;
     }
 }

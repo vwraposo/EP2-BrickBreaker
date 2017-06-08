@@ -1,7 +1,9 @@
 package com.mygdx.brickbreaker.models;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
 
@@ -15,7 +17,11 @@ public class Brick {
     public static final Integer width = 200;
     public static final Integer height = 90;
 
-    private Texture[] images;
+    Color easy = new Color();
+    Color medium = new Color();
+    Color hard = new Color();
+
+    private Sprite[] images;
     public Rectangle body;
     private Integer lives;
     public Vector2 velocity;
@@ -33,10 +39,10 @@ public class Brick {
         this.limitY = limitY;
 
         this.lives = lives;
-        images = new Texture[3];
-        images[0] = new Texture(Gdx.files.internal("brick_easy.png"));
-        images[1] = new Texture(Gdx.files.internal("brick_medium.png"));
-        images[2] = new Texture(Gdx.files.internal("brick_hard.png"));
+        images = new Sprite[3];
+        images[0] = new Sprite(new Texture(Gdx.files.internal("brick_easy.png")));
+        images[1] = new Sprite(new Texture(Gdx.files.internal("brick_medium.png")));
+        images[2] = new Sprite(new Texture(Gdx.files.internal("brick_hard.png")));
     }
 
     public Brick (float w, float h, Vector2 velocity, Vector2 limitX, Vector2 limitY) {
@@ -68,7 +74,7 @@ public class Brick {
         }
     }
 
-    public Texture getImage() {
+    public Sprite getImage() {
         return images[(lives - 1)%3];
     }
 
