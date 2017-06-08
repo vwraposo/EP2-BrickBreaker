@@ -25,6 +25,15 @@ public class Ball extends Body {
         velocity.y = cos(ang)*norm;
     }
 
+    public void speed_up () {
+        this.velocity.x *= 2;
+        this.velocity.y *= 2;
+    }
+
+    public void slow_down () {
+        this.velocity.x /= 2;
+        this.velocity.y /= 2;
+    }
 
     public void move(float delta) {
         Gdx.app.log("BALL", "Move");

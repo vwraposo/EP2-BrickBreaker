@@ -82,6 +82,7 @@ public class GameController {
 
         if (game.ball.body.overlaps(game.platform.body) &&
                 game.ball.body.y + game.ball.body.height/2 > game.platform.body.y + game.platform.body.height) {
+            game.ball.slow_down();
             Vector2 d = new Vector2(
                     (game.ball.body.x + game.ball.body.width / 2) - (game.platform.body.x + game.platform.body.width / 2),
                     (game.ball.body.y + game.ball.body.height / 2) - (game.platform.body.y - game.platform.body.height)
@@ -99,6 +100,10 @@ public class GameController {
             Brick brick = iter.next();
             brick.move(delta);
             if (game.ball.body.overlaps(brick.body)) {
+                if (brick.is_bumper()) {
+                    game.ball.speed_up();
+                    // bumper sound play
+                }
                 Boolean is_under_or_above_height = (game.ball.body.y + game.ball.body.height / 2 < brick.body.y ||
                         game.ball.body.y + game.ball.body.height / 2 > brick.body.y + brick.body.height);
                 Boolean is_under_or_above_width = (game.ball.body.x + game.ball.body.width/2 > brick.body.x ||

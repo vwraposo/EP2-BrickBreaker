@@ -3,6 +3,7 @@ package com.mygdx.brickbreaker.models;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.Array;
+import com.badlogic.gdx.utils.BinaryHeap;
 import com.mygdx.brickbreaker.BrickBreaker;
 
 /**
@@ -10,7 +11,7 @@ import com.mygdx.brickbreaker.BrickBreaker;
  */
 
 public class Maps {
-    public static Integer total = 4;
+    public static Integer total = 5;
     private BrickBreaker game;
     private Array<Brick>[] maps;
     private Integer level;
@@ -51,6 +52,8 @@ public class Maps {
                 return map2();
             case 3:
                 return map3();
+            case 4:
+                return map4();
             default:
                 //error
                 return null;
@@ -162,4 +165,18 @@ public class Maps {
         return map;
     }
 
+    private Array<Brick> map4() {
+        Array<Brick> map = new Array<Brick>();
+
+        Brick bumper = new Brick(Brick.width,Brick.height,
+                new Vector2(0,0),
+                new Vector2(0,game.WIDTH),
+                new Vector2(0,game.HEIGHT));
+        bumper.body.x = (game.WIDTH - bumper.width)/2;
+        bumper.body.y = (game.HEIGHT - bumper.height)/2;
+
+        map.add(bumper);
+
+        return map;
+    }
 }

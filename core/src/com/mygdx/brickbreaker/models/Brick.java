@@ -22,6 +22,7 @@ public class Brick {
     public Vector2 limitX;
     public Vector2 limitY;
 
+    private boolean bumper = false;
 
     public Brick (Integer lives, float w, float h, Vector2 velocity, Vector2 limitX, Vector2 limitY) {
         this.body = new Rectangle();
@@ -38,6 +39,14 @@ public class Brick {
         images[2] = new Texture(Gdx.files.internal("brick_hard.png"));
     }
 
+    public Brick (float w, float h, Vector2 velocity, Vector2 limitX, Vector2 limitY) {
+        this(Integer.MAX_VALUE,w,h,velocity,limitX,limitY);
+        this.bumper = true;
+    }
+
+    public boolean is_bumper () {
+        return this.bumper;
+    }
 
     public void move(float delta) {
         Gdx.app.log("BALL", "Move");
@@ -60,13 +69,15 @@ public class Brick {
     }
 
     public Texture getImage() {
-        return images[lives - 1];
+        return images[(lives - 1)%3];
     }
 
     public boolean hit() {
-        lives--;
-        if (lives == 0) return true;
-        return false;
+        if (this.bumper) return false;
+        return --lives == 0;
+//        lives--;
+//        if (lives == 0) return true;
+//        return false;
     }
 
 }
