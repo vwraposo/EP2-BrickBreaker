@@ -46,15 +46,15 @@ public class Brick {
         if (body.x < limitX.x) {
             body.x = limitX.x;
             velocity.x *= -1;
-        } else if (body.x > limitX.y){
-            body.x = limitX.y;
+        } else if (body.x +body.width > limitX.y){
+            body.x = limitX.y - body.width;
             velocity.x *= -1;
         }
         if (body.y < limitY.x) {
             body.y = limitY.x;
             velocity.y *= -1;
-        } else if (body.y > limitY.y) {
-            body.y = limitY.y;
+        } else if (body.y + body.height > limitY.y) {
+            body.y = limitY.y - body.height;
             velocity.y *= -1;
         }
     }
