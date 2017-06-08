@@ -1,5 +1,6 @@
 package com.mygdx.brickbreaker.models;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.Array;
 import com.mygdx.brickbreaker.BrickBreaker;
@@ -142,12 +143,22 @@ public class Maps {
     private Array<Brick> map3() {
         Array<Brick> map = new Array<Brick>();
 
-        Brick brick = new Brick(1, Brick.width, Brick.height,
-                new Vector2(1000, 0), new Vector2(game.WIDTH / 4, 3*game.WIDTH / 4), new Vector2(0, game.HEIGHT));
-        brick.body.x = game.WIDTH / 2;
-        brick.body.y = game.HEIGHT /2;
+        int espaco_aereo = (int) (0.7 * game.HEIGHT);
+        int largura_banda = (int) (1.2 * Brick.height);
+        int n_bandas = (espaco_aereo / largura_banda);
+        int offset = game.HEIGHT - espaco_aereo + (int) (largura_banda / 2.0);
 
-        map.add(brick);
+        for (int i = 1; i <= n_bandas; i++) {
+            Brick brick = new Brick(1 + (i % 3), Brick.width, Brick.height,
+                    new Vector2(2000/(2 + (i % 4)), 0), // velocidade
+                    new Vector2(game.WIDTH / 10, 9 * game.WIDTH / 10), // limites horizontais
+                    new Vector2(0, game.HEIGHT)); // limites verticais
+            brick.body.x = game.WIDTH / 2;
+            brick.body.y = offset + (i-1) * largura_banda;
+
+            map.add(brick);
+        }
+
         return map;
     }
 
