@@ -154,7 +154,11 @@ public class GameMap {
 
         bricks.add(brick);
 
+<<<<<<< HEAD
         Special bumper = new Special(Special.BOOSTER, 100, 100,
+=======
+        Special bumper = new Special(Special.BUMPER, 100,
+>>>>>>> b7168da65d69d8d830e4c9c57aa65c749e413ba4
                 new Vector2(0,0),
                 new Vector2(0,gameWidth),
                 new Vector2(0,gameHeight));
