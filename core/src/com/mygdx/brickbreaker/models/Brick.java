@@ -6,6 +6,7 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
+import com.badlogic.gdx.scenes.scene2d.ui.Image;
 
 import java.lang.reflect.Array;
 
@@ -17,11 +18,7 @@ public class Brick {
     public static final Integer width = 200;
     public static final Integer height = 90;
 
-    Color easy = new Color();
-    Color medium = new Color();
-    Color hard = new Color();
-
-    private Sprite[] images;
+    private Texture[] images;
     public Rectangle body;
     private Integer lives;
     public Vector2 velocity;
@@ -39,20 +36,12 @@ public class Brick {
         this.limitY = limitY;
 
         this.lives = lives;
-        images = new Sprite[3];
-        images[0] = new Sprite(new Texture(Gdx.files.internal("brick_easy.png")));
-        images[1] = new Sprite(new Texture(Gdx.files.internal("brick_medium.png")));
-        images[2] = new Sprite(new Texture(Gdx.files.internal("brick_hard.png")));
+        images = new Texture[3];
+        images[0] = new Texture(Gdx.files.internal("brick_easy.png"));
+        images[1] = new Texture(Gdx.files.internal("brick_medium.png"));
+        images[2] = new Texture(Gdx.files.internal("brick_hard.png"));
     }
 
-    public Brick (float w, float h, Vector2 velocity, Vector2 limitX, Vector2 limitY) {
-        this(Integer.MAX_VALUE,w,h,velocity,limitX,limitY);
-        this.bumper = true;
-    }
-
-    public boolean is_bumper () {
-        return this.bumper;
-    }
 
     public void move(float delta) {
         Gdx.app.log("BALL", "Move");
@@ -74,7 +63,7 @@ public class Brick {
         }
     }
 
-    public Sprite getImage() {
+    public Texture getImage() {
         return images[(lives - 1)%3];
     }
 

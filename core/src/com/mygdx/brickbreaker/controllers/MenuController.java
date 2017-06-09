@@ -62,8 +62,7 @@ public class MenuController {
             brick.move(delta);
         }
         for (Brick special : game.specials) {
-            Gdx.app.log("BUMPER", special.toString());
-            special.getImage(game.WIDTH / 2, game.HEIGHT / 2).draw(game.batch);
+            game.batch.draw(special.getImage(), special.body.x, special.body.y, special.body.width, special.body.height);
             special.move(delta);
         }
         game.font.draw(game.batch, title1, game.WIDTH/2 - title1.width/2, game.HEIGHT - 2*title1.height);

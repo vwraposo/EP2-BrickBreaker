@@ -184,8 +184,8 @@ public class Maps {
                 new Vector2(0,0),
                 new Vector2(0,game.WIDTH),
                 new Vector2(0,game.HEIGHT));
-        brick.body.x = (game.WIDTH - brick.width)/4;
-        brick.body.y = (game.HEIGHT - brick.height)/4;
+        brick.body.x = 0;
+        brick.body.y = 0;
 
         map.add(brick);
 

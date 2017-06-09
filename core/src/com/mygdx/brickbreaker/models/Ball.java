@@ -14,11 +14,14 @@ import static com.badlogic.gdx.math.MathUtils.sin;
 
 public class Ball extends Body {
     public Vector2 velocity;
-    public final float norm = 1300;
+    public final float NORM = 1300;
+    public float norm;
+    private float eps = 5;
 
     public Ball (String img) {
         super(img, 60, 60);
 
+        norm = NORM;
         float ang =  random(- PI / 4, PI / 4);
         velocity = new Vector2();
         velocity.x = sin(ang)*norm;
@@ -26,17 +29,22 @@ public class Ball extends Body {
     }
 
     public void speed_up () {
-        this.velocity.x *= 2;
-        this.velocity.y *= 2;
+        Gdx.app.log("SPEED_UP", "Speedup");
+       norm = 2*NORM;
     }
 
     public void slow_down () {
-        this.velocity.x /= 2;
-        this.velocity.y /= 2;
+        norm = NORM / 2;
     }
 
     public void move(float delta) {
-        Gdx.app.log("BALL", "Move");
+
+        //Restore Velocity
+        Gdx.app.log("NORM", String.valueOf(norm));
+        if (norm > NORM + eps) {
+            norm -= delta*(2*NORM - NORM) / 3;
+            velocity = velocity.nor().scl(norm);
+        }
         this.body.x += velocity.x * delta;
         this.body.y += velocity.y * delta;
     }

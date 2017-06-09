@@ -16,7 +16,7 @@ import com.badlogic.gdx.graphics.Color;
 public class Special extends Brick {
     public static Integer BUMPER = 1;
     private Integer type;
-    private Sprite sprite;
+    private Texture image;
 
     private Color bumper = new Color();
 
@@ -24,13 +24,11 @@ public class Special extends Brick {
         super(0, radius, radius, velocity, limitX, limitY);
 
         this.type = type;
-        sprite = new Sprite(new Texture(Gdx.files.internal("ball.png")));
-        sprite.setColor(Color.GOLD);
+        image = new Texture(Gdx.files.internal("ball.png"));
     }
 
-    public Sprite getImage(float x, float y) {
-        sprite.setPosition(x, y);
-        return sprite;
+    public Texture getImage() {
+        return image;
     }
 
     public boolean isBumper() {
