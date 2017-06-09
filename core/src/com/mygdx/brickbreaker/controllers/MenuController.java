@@ -51,6 +51,7 @@ public class MenuController {
         setSelectButton();
     }
 
+
     public void render(float delta) {
         game.batch.begin();
 
@@ -69,11 +70,16 @@ public class MenuController {
         game.font.draw(game.batch, title2, game.WIDTH/2 - title2.width/2, game.HEIGHT - 2*title1.height
                 - game.HEIGHT/38 - title2.height);
 
+        updateLevel();
         game.font.draw(game.batch, level, game.WIDTH / 2 - level.width / 3, game.HEIGHT / 4);
 
         game.batch.end();
 
         stage.draw();
+    }
+
+    public void updateLevel() {
+        level.setText(game.font, String.valueOf(game.maps.getLevel() + 1));
     }
 
     private void setPlayButton() {
@@ -119,7 +125,7 @@ public class MenuController {
             public void touchUp (InputEvent event, float x, float y, int pointer, int button) {
                 Gdx.app.log("BUTTON", "up");
                 game.nextLevel();
-                level.setText(game.font, String.valueOf(game.maps.getLevel() + 1));
+                updateLevel();
             }
         });
         stage.addActor(next);
@@ -144,7 +150,7 @@ public class MenuController {
             public void touchUp (InputEvent event, float x, float y, int pointer, int button) {
                 Gdx.app.log("BUTTON", "up");
                 game.previousLevel();
-                level.setText(game.font, String.valueOf(game.maps.getLevel() + 1));
+                updateLevel();
             }
         });
         stage.addActor(prev);

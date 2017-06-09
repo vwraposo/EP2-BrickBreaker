@@ -20,7 +20,9 @@ Projeto de Exercício-Programa para a matéria MAC0463 - Computação Móvel | I
 
 - [x] Diferentes tijolos (Facil) - Podemos acrescentar mais
 
-- [ ] Blocos moveis (Medio)
+- [x] Blocos moveis (Medio)
 
-- [ ] Difícil (1): Flipper?
+- [ ] Difícil (1): Flipper?o
+
+Arrumar O numero do nivel ao voltar pra HOME, colocar visibilidade nos bricks
 

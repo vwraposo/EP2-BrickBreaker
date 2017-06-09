@@ -23,7 +23,7 @@ public class Special extends Brick {
         super(0, radius, radius, velocity, limitX, limitY);
 
         this.type = type;
-        image = new Texture(Gdx.files.internal("bumper.png"));
+        image = new Texture(Gdx.files.internal("speed_up.png"));
     }
 
     public Texture getImage() {
