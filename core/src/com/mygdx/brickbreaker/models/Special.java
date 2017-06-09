@@ -14,13 +14,13 @@ import com.badlogic.gdx.graphics.Color;
  */
 
 public class Special extends Brick {
-    public static Integer BUMPER = 1;
+    public static Integer BOOSTER = 1;
     private Integer type;
     private Texture image;
 
 
-    public Special (Integer type, float radius, Vector2 velocity, Vector2 limitX, Vector2 limitY) {
-        super(0, radius, radius, velocity, limitX, limitY);
+    public Special (Integer type, float w, float h, Vector2 velocity, Vector2 limitX, Vector2 limitY) {
+        super(0, w, h, velocity, limitX, limitY);
 
         this.type = type;
         image = new Texture(Gdx.files.internal("speed_up.png"));
@@ -30,12 +30,12 @@ public class Special extends Brick {
         return image;
     }
 
-    public boolean isBumper() {
-        return this.type == BUMPER;
+    public boolean isBooster() {
+        return this.type == BOOSTER;
     }
 
     public void action(BrickBreaker game) {
-        if (isBumper()) {
+        if (isBooster()) {
             game.ball.speed_up();
         }
     }

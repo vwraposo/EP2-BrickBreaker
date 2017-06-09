@@ -14,7 +14,7 @@ import static com.badlogic.gdx.math.MathUtils.sin;
 
 public class Ball extends Body {
     public Vector2 velocity;
-    public final float NORM = 1300;
+    public final float NORM = 1100;
     public float norm;
     private float eps = 5;
 
@@ -28,13 +28,20 @@ public class Ball extends Body {
         velocity.y = cos(ang)*norm;
     }
 
+    public void reset() {
+        norm = NORM;
+        float ang =  random(- PI / 4, PI / 4);
+        velocity = new Vector2();
+        velocity.x = sin(ang)*norm;
+        velocity.y = cos(ang)*norm;
+    }
     public void speed_up () {
         Gdx.app.log("SPEED_UP", "Speedup");
-       norm = 2*NORM;
+       norm = (float) 1.7*NORM;
     }
 
     public void slow_down () {
-        norm = NORM / 2;
+        norm = NORM / (float) 1.7;
     }
 
     public void move(float delta) {
@@ -42,7 +49,7 @@ public class Ball extends Body {
         //Restore Velocity
         Gdx.app.log("NORM", String.valueOf(norm));
         if (norm > NORM + eps) {
-            norm -= delta*(2*NORM - NORM) / 3;
+            norm -= delta*(1.7*NORM - NORM) / 3.2;
             velocity = velocity.nor().scl(norm);
         }
         this.body.x += velocity.x * delta;

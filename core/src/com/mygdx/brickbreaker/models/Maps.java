@@ -197,7 +197,7 @@ public class Maps {
 
         map.add(brick);
 
-        Special bumper = new Special(Special.BUMPER, 300,
+        Special bumper = new Special(Special.BOOSTER, 400, 400,
                 new Vector2(0,0),
                 new Vector2(0,game.WIDTH),
                 new Vector2(0,game.HEIGHT));

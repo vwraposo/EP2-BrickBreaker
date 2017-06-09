@@ -94,6 +94,7 @@ public class BrickBreaker extends Game {
 
     public void restartGame(int level) {
         batch.setColor(Color.WHITE);
+		ball.reset();
         ball.body.x = WIDTH / 2 - ball.body.width / 2;
         ball.body.y = HEIGHT / 8 + platform.body.height / 2;
 

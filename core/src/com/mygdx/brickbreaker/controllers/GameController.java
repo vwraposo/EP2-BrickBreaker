@@ -45,8 +45,10 @@ public class GameController {
         for (Brick special : game.specials)
             game.batch.draw(special.getImage(), special.body.x, special.body.y, special.body.width, special.body.height);
 
-        game.batch.draw(game.ball.image, game.ball.body.x, game.ball.body.y);
-        game.batch.draw(game.platform.image, game.platform.body.x, game.platform.body.y);
+        game.batch.draw(game.ball.image, game.ball.body.x, game.ball.body.y,
+                game.ball.body.width, game.ball.body.height);
+        game.batch.draw(game.platform.image, game.platform.body.x, game.platform.body.y,
+                game.platform.body.width, game.platform.body.height);
 
         game.batch.end();
 
