@@ -13,6 +13,7 @@ import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.mygdx.brickbreaker.models.Ball;
 import com.mygdx.brickbreaker.models.Body;
 import com.mygdx.brickbreaker.models.Brick;
+import com.mygdx.brickbreaker.models.GameMap;
 import com.mygdx.brickbreaker.models.Maps;
 import com.mygdx.brickbreaker.models.Special;
 import com.sun.org.apache.xpath.internal.operations.Bool;
@@ -30,8 +31,7 @@ public class BrickBreaker extends Game {
 	public com.mygdx.brickbreaker.models.Ball ball;
 	public Body platform;
     public Maps maps;
-	public Array<Brick> bricks;
-	public Array<Special> specials;
+	public GameMap gameMap;
 
 	// Estado do jogo
 	private Boolean victory = true;
@@ -88,8 +88,7 @@ public class BrickBreaker extends Game {
         platform.body.y = HEIGHT / 8 - platform.body.height / 2;
 
         maps = new Maps(this);
-        bricks = maps.getMap();
-        specials = maps.getSpecial();
+        gameMap = maps.getMap();
     }
 
     public void restartGame(int level) {
@@ -103,8 +102,7 @@ public class BrickBreaker extends Game {
 
         maps.restartLevel(level);
         maps.setLevel(level);
-        bricks = maps.getMap();
-        specials = maps.getSpecial();
+        gameMap = maps.getMap();
     }
 
 
@@ -123,15 +121,13 @@ public class BrickBreaker extends Game {
 
 	public void nextLevel() {
         maps.nextLevel();
-        bricks = maps.getMap();
-        specials = maps.getSpecial();
+        gameMap = maps.getMap();
     }
 
     public void previousLevel() {
         maps.previousLevel();
         Gdx.app.log("PREV", String.valueOf(maps.getLevel()));
-        bricks = maps.getMap();
-        specials = maps.getSpecial();
+        gameMap = maps.getMap();
     }
 
 	public void setState(Integer state) {
