@@ -57,9 +57,13 @@ public class MenuController {
         game.batch.draw(game.ball.image, game.ball.body.x, game.ball.body.y);
         game.batch.draw(game.platform.image, game.platform.body.x, game.platform.body.y);
 
+        if (game.gameMap.brick_count == 0) game.gameMap.resetMap();
+
         for (Brick brick : game.gameMap.bricks) {
-            game.batch.draw(brick.getImage(), brick.body.x, brick.body.y, brick.body.width, brick.body.height);
-            brick.move(delta);
+            if (brick.is_visible()) {
+                game.batch.draw(brick.getImage(), brick.body.x, brick.body.y, brick.body.width, brick.body.height);
+                brick.move(delta);
+            }
         }
         for (Brick special : game.gameMap.specials) {
             game.batch.draw(special.getImage(), special.body.x, special.body.y, special.body.width, special.body.height);
