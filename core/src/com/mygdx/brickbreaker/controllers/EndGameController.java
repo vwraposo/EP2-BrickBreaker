@@ -44,9 +44,11 @@ public class EndGameController {
         game.batch.draw(game.ball.image, game.ball.body.x, game.ball.body.y);
         game.batch.draw(game.platform.image, game.platform.body.x, game.platform.body.y);
 
-        for (Brick brick : game.bricks)
-            game.batch.draw(brick.getImage(), brick.body.x, brick.body.y, brick.body.width, brick.body.height);
-        for (Brick special : game.specials)
+        for (Brick brick : game.gameMap.bricks)
+            if (brick.is_visible()) {
+                game.batch.draw(brick.getImage(), brick.body.x, brick.body.y, brick.body.width, brick.body.height);
+            }
+        for (Brick special : game.gameMap.specials)
             game.batch.draw(special.getImage(), special.body.x, special.body.y, special.body.width, special.body.height);
 
 
@@ -55,7 +57,6 @@ public class EndGameController {
         else
             message.setText(game.font, "YOU LOST");
         game.font.draw(game.batch, message, game.WIDTH/2 - message.width/2, 3*game.HEIGHT/4 - message.height/2);
-
 
         game.batch.end();
 
