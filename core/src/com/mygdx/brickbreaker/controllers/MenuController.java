@@ -57,7 +57,8 @@ public class MenuController {
         game.batch.draw(game.ball.image, game.ball.body.x, game.ball.body.y);
         game.batch.draw(game.platform.image, game.platform.body.x, game.platform.body.y);
 
-        if (game.gameMap.brick_count == 0) game.gameMap.resetMap();
+//        if (game.gameMap.brick_count == 0)
+            game.gameMap.resetMap();
 
         for (Brick brick : game.gameMap.bricks) {
             if (brick.is_visible()) {
