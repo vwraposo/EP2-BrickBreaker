@@ -10,6 +10,7 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGenerator;
 import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.viewport.FitViewport;
+import com.mygdx.brickbreaker.models.Ball;
 import com.mygdx.brickbreaker.models.Body;
 import com.mygdx.brickbreaker.models.Brick;
 import com.mygdx.brickbreaker.models.Maps;
@@ -76,8 +77,8 @@ public class BrickBreaker extends Game {
 
 	}
 
-	public void startGame(int level) {
-        ball = new com.mygdx.brickbreaker.models.Ball("ball.png");
+	public void startGame() {
+        ball = new Ball("ball.png");
         platform = new Body("bar.png", 300, 50);
 
         ball.body.x = WIDTH / 2 - ball.body.width / 2;
@@ -86,10 +87,25 @@ public class BrickBreaker extends Game {
         platform.body.x = WIDTH / 2 - platform.body.width / 2;
         platform.body.y = HEIGHT / 8 - platform.body.height / 2;
 
-        maps = new Maps(this, level);
+        maps = new Maps(this);
         bricks = maps.getMap();
         specials = maps.getSpecial();
     }
+
+    public void restartGame(int level) {
+        batch.setColor(Color.WHITE);
+        ball.body.x = WIDTH / 2 - ball.body.width / 2;
+        ball.body.y = HEIGHT / 8 + platform.body.height / 2;
+
+        platform.body.x = WIDTH / 2 - platform.body.width / 2;
+        platform.body.y = HEIGHT / 8 - platform.body.height / 2;
+
+        maps.restartLevel(level);
+        maps.setLevel(level);
+        bricks = maps.getMap();
+        specials = maps.getSpecial();
+    }
+
 
 
 	@Override

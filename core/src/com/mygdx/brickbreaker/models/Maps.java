@@ -17,13 +17,21 @@ public class Maps {
     private Array<Special>[] specials;
     private Integer level;
 
-    public Maps(BrickBreaker game, int level) {
+    public Maps(BrickBreaker game) {
         this.game = game;
-        this.level = level;
+        this.level = 0;
         maps = new Array[total];
         specials = new Array[total];
         for (int i = 0; i < total; i++)
             newMap(i);
+    }
+
+    public void restartLevel(int level) {
+         newMap(level);
+    }
+
+    public void setLevel(int level) {
+        this.level = level;
     }
 
     public Array<Brick> getMap() {

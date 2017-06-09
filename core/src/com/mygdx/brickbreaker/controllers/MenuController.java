@@ -33,7 +33,7 @@ public class MenuController {
 
     public MenuController (BrickBreaker game) {
         this.game = game;
-        game.startGame(0);
+        game.startGame();
         //Fundo Cinza
         game.batch.setColor(Color.LIGHT_GRAY);
 

@@ -40,8 +40,10 @@ public class GameController {
         game.batch.draw(game.ball.image, game.ball.body.x, game.ball.body.y);
         game.batch.draw(game.platform.image, game.platform.body.x, game.platform.body.y);
 
-        for (Brick brick : game.bricks)
+        Gdx.app.log("BSIZE", String.valueOf(game.maps.getMap().size));
+        for (Brick brick : game.bricks) {
             game.batch.draw(brick.getImage(), brick.body.x, brick.body.y, brick.body.width, brick.body.height);
+        }
         for (Brick special : game.specials)
             game.batch.draw(special.getImage(), special.body.x, special.body.y, special.body.width, special.body.height);
 
@@ -149,7 +151,11 @@ public class GameController {
                         (game.ball.body.x + game.ball.body.width / 2) - (special.body.x + special.body.width / 2),
                         (game.ball.body.y + game.ball.body.height / 2) - (special.body.y - special.body.height / 2)
                 );
-                game.ball.velocity = d.nor().scl(game.ball.norm);
+                d = d.nor();
+                game.ball.velocity = d.scl(game.ball.norm);
+                // TODO: jogar pra fora do contato
+                //game.ball.body.setPosition(new Vector2(special.body.x, special.body.y)
+                       //         .add(d.scl(game.ball.body.width + special.body.width)));
                 bumperHit.play();
             }
             special.move(delta);
