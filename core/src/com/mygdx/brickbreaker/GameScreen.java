@@ -48,18 +48,13 @@ public class GameScreen implements Screen {
             Gdx.input.setInputProcessor(endGameController.stage);
             endGameController.render(delta);
         }
-
     }
-
 
     @Override
     public void dispose() {
         game.ball.image.dispose();
         game.platform.image.dispose();
     }
-
-
-
 
     @Override
     public void show() {
@@ -85,6 +80,4 @@ public class GameScreen implements Screen {
     public void hide() {
 
     }
-
-
 }
