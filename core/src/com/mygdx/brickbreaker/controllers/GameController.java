@@ -38,11 +38,13 @@ public class GameController {
         Gdx.app.log("FRAMES", String.valueOf(1 / delta));
         game.batch.begin();
 
-        Gdx.app.log("BSIZE", String.valueOf(game.maps.getMap().size));
-        for (Brick brick : game.bricks) {
-            game.batch.draw(brick.getImage(), brick.body.x, brick.body.y, brick.body.width, brick.body.height);
+        Gdx.app.log("BSIZE", String.valueOf(game.maps.getMap().bricks.size));
+        for (Brick brick : game.gameMap.bricks) {
+            if (brick.is_visible()) {
+                game.batch.draw(brick.getImage(), brick.body.x, brick.body.y, brick.body.width, brick.body.height);
+            }
         }
-        for (Brick special : game.specials)
+        for (Brick special : game.gameMap.specials)
             game.batch.draw(special.getImage(), special.body.x, special.body.y, special.body.width, special.body.height);
 
         game.batch.draw(game.ball.image, game.ball.body.x, game.ball.body.y,
@@ -102,12 +104,9 @@ public class GameController {
 
 
         // Ball and game.bricks interaction
-
-        Iterator<Brick> iter = game.bricks.iterator();
-        while(iter.hasNext()) {
-            Brick brick = iter.next();
+        for (Brick brick: game.gameMap.bricks) {
             brick.move(delta);
-            if (game.ball.body.overlaps(brick.body)) {
+            if (brick.is_visible() && game.ball.body.overlaps(brick.body)) {
                 Boolean is_under_or_above_height = (game.ball.body.y + game.ball.body.height / 2 < brick.body.y ||
                         game.ball.body.y + game.ball.body.height / 2 > brick.body.y + brick.body.height);
                 Boolean is_under_or_above_width = (game.ball.body.x + game.ball.body.width/2 > brick.body.x ||
@@ -135,18 +134,14 @@ public class GameController {
                     game.ball.velocity.y *= -1;
                 }
 
-
-
                 // Remove life
-                if (brick.hit()) {
-                    iter.remove();
-                }
-
+                if (brick.hit())
+                    game.gameMap.brick_count--;
             }
         }
 
         // Specials
-        for (Special special : game.specials) {
+        for (Special special : game.gameMap.specials) {
             if (game.ball.body.overlaps(special.body)) {
                 special.action(game);
                 bumperHit.play();
@@ -155,7 +150,7 @@ public class GameController {
         }
 
 
-        if (game.bricks.size == 0) {
+        if (game.gameMap.brick_count == 0) {
             Gdx.app.log("ENDGAME", "You won");
             game.gameWon();
             game.setState(game.FINISH);
