@@ -20,12 +20,13 @@ public class Brick {
 
     private Texture[] images;
     public Rectangle body;
+    private Integer initial_lives;
     private Integer lives;
     public Vector2 velocity;
     public Vector2 limitX;
     public Vector2 limitY;
 
-    private boolean bumper = false;
+    private boolean visible;
 
     public Brick (Integer lives, float w, float h, Vector2 velocity, Vector2 limitX, Vector2 limitY) {
         this.body = new Rectangle();
@@ -35,11 +36,14 @@ public class Brick {
         this.limitX = limitX;
         this.limitY = limitY;
 
+        this.initial_lives = lives;
         this.lives = lives;
         images = new Texture[3];
         images[0] = new Texture(Gdx.files.internal("brick_easy.png"));
         images[1] = new Texture(Gdx.files.internal("brick_medium.png"));
         images[2] = new Texture(Gdx.files.internal("brick_hard.png"));
+
+        this.visible = true;
     }
 
 
@@ -68,11 +72,21 @@ public class Brick {
     }
 
     public boolean hit() {
-        if (this.bumper) return false;
-        return --lives == 0;
-//        lives--;
-//        if (lives == 0) return true;
-//        return false;
+        if (--this.lives == 0)
+            this.visible = false;
+        return !this.visible;
+    }
+
+    public boolean is_visible () {
+        return this.visible;
+    }
+
+    public void resetLives() {
+        this.lives = this.initial_lives;
+    }
+
+    public void resetVisibility() {
+        this.visible = true;
     }
 
 }
