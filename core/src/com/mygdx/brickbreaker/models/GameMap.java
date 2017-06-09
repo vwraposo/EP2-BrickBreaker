@@ -12,6 +12,7 @@ public class GameMap {
     public Array<Brick> bricks;
     public Array<Special> specials;
     public int brick_count;
+    private int total_bricks;
 
     private int gameWidth;
     private int gameHeight;
@@ -42,9 +43,9 @@ public class GameMap {
     }
 
     public void resetMap () {
+        this.brick_count = this.total_bricks;
         for (Brick each: this.bricks) {
             each.resetLives();
-            if (!each.is_visible()) this.brick_count++;
             each.resetVisibility();
         }
     }
@@ -63,6 +64,8 @@ public class GameMap {
             }
             h -= Brick.height + space;
         }
+
+        this.total_bricks = this.brick_count;
     }
 
     private void map1() {
@@ -84,6 +87,7 @@ public class GameMap {
             }
             h -= Brick.height + space;
         }
+        this.total_bricks = this.brick_count;
     }
 
     private void map2() {
@@ -118,6 +122,7 @@ public class GameMap {
                 }
             }
         }
+        this.total_bricks = this.brick_count;
     }
 
     private void map3() {
@@ -136,6 +141,7 @@ public class GameMap {
 
             bricks.add(brick);
         }
+        this.total_bricks = this.brick_count;
     }
 
     private void map4() {
@@ -156,5 +162,6 @@ public class GameMap {
         bumper.body.y = (gameHeight - bumper.height)/2;
 
         specials.add(bumper);
+        this.total_bricks = this.brick_count;
     }
 }
