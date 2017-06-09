@@ -18,7 +18,6 @@ public class Special extends Brick {
     private Integer type;
     private Texture image;
 
-    private Color bumper = new Color();
 
     public Special (Integer type, float radius, Vector2 velocity, Vector2 limitX, Vector2 limitY) {
         super(0, radius, radius, velocity, limitX, limitY);

@@ -37,8 +37,6 @@ public class GameController {
     public void render(float delta) {
         Gdx.app.log("FRAMES", String.valueOf(1 / delta));
         game.batch.begin();
-        game.batch.draw(game.ball.image, game.ball.body.x, game.ball.body.y);
-        game.batch.draw(game.platform.image, game.platform.body.x, game.platform.body.y);
 
         Gdx.app.log("BSIZE", String.valueOf(game.maps.getMap().size));
         for (Brick brick : game.bricks) {
@@ -46,6 +44,9 @@ public class GameController {
         }
         for (Brick special : game.specials)
             game.batch.draw(special.getImage(), special.body.x, special.body.y, special.body.width, special.body.height);
+
+        game.batch.draw(game.ball.image, game.ball.body.x, game.ball.body.y);
+        game.batch.draw(game.platform.image, game.platform.body.x, game.platform.body.y);
 
         game.batch.end();
 
@@ -145,17 +146,7 @@ public class GameController {
         // Specials
         for (Special special : game.specials) {
             if (game.ball.body.overlaps(special.body)) {
-                Gdx.app.log("BUMPER", "HIt");
                 special.action(game);
-                Vector2 d = new Vector2(
-                        (game.ball.body.x + game.ball.body.width / 2) - (special.body.x + special.body.width / 2),
-                        (game.ball.body.y + game.ball.body.height / 2) - (special.body.y - special.body.height / 2)
-                );
-                d = d.nor();
-                game.ball.velocity = d.scl(game.ball.norm);
-                // TODO: jogar pra fora do contato
-                //game.ball.body.setPosition(new Vector2(special.body.x, special.body.y)
-                       //         .add(d.scl(game.ball.body.width + special.body.width)));
                 bumperHit.play();
             }
             special.move(delta);
