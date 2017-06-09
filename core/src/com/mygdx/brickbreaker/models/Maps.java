@@ -48,8 +48,4 @@ public class Maps {
         level = level - 1 % total;
         if (level < 0) level = total - 1;
     }
-<<<<<<< HEAD
 }
-=======
-}
->>>>>>> b7168da65d69d8d830e4c9c57aa65c749e413ba4
