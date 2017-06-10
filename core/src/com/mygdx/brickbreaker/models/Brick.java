@@ -30,6 +30,8 @@ public class Brick {
     public Vector2 limitX;
     public Vector2 limitY;
 
+    private int hitWait;
+
     private boolean visible;
 
     public Brick (Integer lives, float w, float h, Vector2 velocity, Vector2 limitX, Vector2 limitY) {
@@ -48,9 +50,11 @@ public class Brick {
         images[2] = new Texture(Gdx.files.internal("brick_hard.png"));
 
         this.visible = true;
+        this.hitWait = 0;
     }
 
     public void move(float delta) {
+        this.hitWait--;
         Gdx.app.log("BALL", "Move");
         body.x += velocity.x * delta;
         body.y += velocity.y * delta;
@@ -75,9 +79,13 @@ public class Brick {
     }
 
     public boolean hit() {
-        if (--this.lives == 0)
-            this.visible = false;
-        return !this.visible;
+        if (this.hitWait <= 0) {
+            this.hitWait = 10;
+            if (--this.lives == 0)
+                this.visible = false;
+            return !this.visible;
+        }
+        return false;
     }
 
     public boolean is_visible () {
