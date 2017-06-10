@@ -116,14 +116,12 @@ public class Brick {
         return this.body.x + this.body.width;
     }
 
-    public int collision_side (Ball ball,float delta) {
+    public int collision_side (Ball ball) {
         String TAG = "BRICK_COLL";
-
-        Ball previous = ball.previousFrame(delta);
 
         Vector2 r = new Vector2(this.body.width/2,  this.body.height/2);
         Vector2 s = new Vector2(this.body.width/2, -this.body.height/2);
-        Vector2 b = new Vector2(previous.centerX() - this.centerX(), previous.centerY() - this.centerY());
+        Vector2 b = new Vector2(ball.centerX() - this.centerX(), ball.centerY() - this.centerY());
 
         float angleR = r.angle(b);
         float angleS = s.angle(b);

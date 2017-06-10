@@ -99,17 +99,17 @@ public class GameController {
     private void collision (Brick brick, float delta) {
         Ball ball = game.ball;
         if (brick.is_visible() && ball.body.overlaps(brick.body)) {
-            switch (brick.collision_side(ball, delta)) {
+            switch (brick.collision_side(ball.previousFrame(delta))) {
                 case 3: // TOP_SIDE
                     ball.body.y = brick.top();
                     ball.reflectY();
                     break;
                 case 4: // BOTTOM_SIDE
-                    ball.body.y = brick.bottom() - ball.body.height/2;
+                    ball.body.y = brick.bottom() - ball.body.height;
                     ball.reflectY();
                     break;
                 case 1: // LEFT_SIDE
-                    ball.body.x = brick.left() - ball.body.width/2;
+                    ball.body.x = brick.left() - ball.body.width;
                     ball.reflectX();
                     break;
                 default: // RIGHT_SIDE
