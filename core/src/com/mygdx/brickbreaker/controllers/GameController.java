@@ -62,85 +62,75 @@ public class GameController {
 
     }
 
-    private void objectsProcessing(float delta) {
-        // Collisions
-        Gdx.app.log("Movimento", "processando Objetos");
-        // Left wall
-        if(game.ball.body.x <= 0) {
-            //sound.play();
-            game.ball.velocity.x *= -1;
-            game.ball.body.x = 0;
-        }
-        // Right wall
-        else if(game.ball.body.x >= game.WIDTH - game.ball.body.width / 2) {
-            //sound.play();
-            game.ball.velocity.x *= -1;
-            game.ball.body.x = game.WIDTH - game.ball.body.width;
-        }
-        // Top wall
-        else if(game.ball.body.y >= game.HEIGHT - game.ball.body.height) {
-            //sound.play();
-            game.ball.velocity.y *= -1;
-            game.ball.body.y = game.HEIGHT - game.ball.body.height;
-        }
-        else if (game.ball.body.y <= 0) {
-            // You lost
+    private void wall_hit () {
+        Ball ball = game.ball;
+        if (ball.leftSide() <= 0) {
+            ball.reflectX();
+            ball.body.x = 0;
+        } else if (ball.rightSide() >= game.WIDTH) {
+            ball.reflectX();
+            ball.body.x = game.WIDTH - ball.body.width;
+        } else if (ball.top() >= game.HEIGHT) {
+            ball.reflectY();
+            ball.body.y = game.HEIGHT - ball.body.height;
+        } else if (ball.bottom() <= 0) {
             Gdx.app.log("ENDGAME", "You lost");
             game.gameLost();
             Gdx.app.log("ENDGAME", game.result().toString());
             game.setState(game.FINISH);
         }
+    }
 
-        if (game.ball.body.overlaps(game.platform.body) &&
-                game.ball.body.y + game.ball.body.height/2 > game.platform.body.y + game.platform.body.height) {
-            Vector2 d = new Vector2(
-                    (game.ball.body.x + game.ball.body.width / 2) - (game.platform.body.x + game.platform.body.width / 2),
-                    (game.ball.body.y + game.ball.body.height / 2) - (game.platform.body.y - game.platform.body.height)
-            );
-            game.ball.velocity = d.nor().scl(game.ball.norm);
-            game.ball.body.y = game.platform.body.y + game.platform.body.height;
+    private void platform_hit () {
+        Ball ball = game.ball;
+        Body platform = game.platform;
+        float platform_top = platform.body.y + platform.body.height;
+        float platform_centerX = platform.body.x + platform.body.width/2;
+        float platform_centerY = platform.body.y + platform.body.height/2;
+
+        if (ball.body.overlaps(platform.body) && ball.centerY() > platform_top) {
+            Vector2 d = new Vector2(ball.centerX() - platform_centerX, ball.centerY() - platform_centerY);
+            ball.velocity = d.nor().scl(ball.norm);
+            ball.body.y = platform_top;
             platformHit.play();
         }
+    }
 
+    private void collision (Brick brick) {
+        Ball ball = game.ball;
+        if (brick.is_visible() && ball.body.overlaps(brick.body)) {
+            switch (brick.collision_side(ball)) {
+                case 3: // TOP_SIDE
+                    ball.body.y = brick.top();
+                    ball.reflectY();
+                    break;
+                case 4: // BOTTOM_SIDE
+                    ball.body.y = brick.bottom() - ball.body.height/2;
+                    ball.reflectY();
+                    break;
+                case 1: // LEFT_SIDE
+                    ball.body.x = brick.left() - ball.body.width/2;
+                    ball.reflectX();
+                    break;
+                default: // RIGHT_SIDE
+                    ball.body.x = brick.right();
+                    ball.reflectX();
+            }
+            if (brick.hit()) game.gameMap.brick_count--;
+        }
+    }
 
-        // Ball and game.bricks interaction
+    private void objectsProcessing(float delta) {
+        Gdx.app.log("Movimento", "processando Objetos");
+
+        wall_hit();
+        platform_hit();
+
         for (Brick brick: game.gameMap.bricks) {
             brick.move(delta);
-            if (brick.is_visible() && game.ball.body.overlaps(brick.body)) {
-                Boolean is_under_or_above_height = (game.ball.body.y + game.ball.body.height / 2 < brick.body.y ||
-                        game.ball.body.y + game.ball.body.height / 2 > brick.body.y + brick.body.height);
-                Boolean is_under_or_above_width = (game.ball.body.x + game.ball.body.width/2 > brick.body.x ||
-                                game.ball.body.x + game.ball.body.width / 2 < brick.body.x + brick.body.width);
-
-                Boolean is_left_or_right_heigth = (game.ball.body.y + game.ball.body.height / 2 < brick.body.y + brick.body.height ||
-                        game.ball.body.y + game.ball.body.height / 2 > brick.body.y);
-                Boolean is_left_or_right_width = (game.ball.body.x + game.ball.body.width/2 < brick.body.x ||
-                        game.ball.body.x + game.ball.body.width / 2 > brick.body.x + brick.body.width);
-                // Vertical
-                if (is_under_or_above_height && is_under_or_above_width) {
-                    game.ball.velocity.y *= -1;
-                    if (game.ball.body.y > brick.body.y)
-                        game.ball.body.y = brick.body.y + brick.body.height;
-                    else
-                        game.ball.body.y = brick.body.y - game.ball.body.height;
-                } else if (is_left_or_right_heigth && is_left_or_right_width) {
-                    game.ball.velocity.x *= -1;
-                    if (game.ball.body.x > brick.body.x)
-                        game.ball.body.x = brick.body.x + brick.body.width;
-                    else
-                        game.ball.body.x = brick.body.x - game.ball.body.width;
-                } else {
-                    game.ball.velocity.x *= -1;
-                    game.ball.velocity.y *= -1;
-                }
-
-                // Remove life
-                if (brick.hit())
-                    game.gameMap.brick_count--;
-            }
+            collision(brick);
         }
 
-        // Specials
         for (Special special : game.gameMap.specials) {
             if (game.ball.body.overlaps(special.body)) {
                 special.action(game);
@@ -149,14 +139,12 @@ public class GameController {
             special.move(delta);
         }
 
-
         if (game.gameMap.brick_count == 0) {
             Gdx.app.log("ENDGAME", "You won");
             game.gameWon();
             game.setState(game.FINISH);
             dispose();
         }
-
 
         game.ball.move(delta);
     }

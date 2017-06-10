@@ -55,4 +55,36 @@ public class Ball extends Body {
         this.body.x += velocity.x * delta;
         this.body.y += velocity.y * delta;
     }
+
+    public float leftSide() {
+        return this.body.x;
+    }
+
+    public float rightSide() {
+        return this.body.x + this.body.width;
+    }
+
+    public float bottom() {
+        return this.body.y;
+    }
+
+    public float top() {
+        return this.body.y + this.body.height;
+    }
+
+    public float centerX () {
+        return this.body.x + this.body.width/2;
+    }
+
+    public float centerY () {
+        return this.body.y + this.body.height/2;
+    }
+
+    public void reflectX () {
+        this.velocity.x *= -1;
+    }
+
+    public void reflectY () {
+        this.velocity.y *= -1;
+    }
 }
