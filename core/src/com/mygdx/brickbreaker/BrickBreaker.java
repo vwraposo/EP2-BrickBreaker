@@ -83,7 +83,7 @@ public class BrickBreaker extends Game {
 		platformHit= Gdx.audio.newSound(Gdx.files.internal("platform_hit.ogg"));
 		booster = Gdx.audio.newSound(Gdx.files.internal("speedup.mp3"));
 		mud = Gdx.audio.newSound(Gdx.files.internal("slowdown.mp3"));
-		breaking = Gdx.audio.newSound(Gdx.files.internal("brickbreaking.mp3"));
+		breaking = Gdx.audio.newSound(Gdx.files.internal("brick_hit.wav"));
 
 	}
 
