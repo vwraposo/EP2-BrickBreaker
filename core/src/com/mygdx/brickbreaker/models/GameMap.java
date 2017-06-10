@@ -29,6 +29,7 @@ public class GameMap {
             case 2: map2(); break;
             case 3: map3(); break;
             case 4: map4(); break;
+            case 5: map5(); break;
             default: map0();
 
 //            razoável?
@@ -166,7 +167,7 @@ public class GameMap {
         Brick brick;
 
         float ini = gameWidth / 4;
-        for (int i = 0; i < 7; i++) {
+        for (int i = 0; i < 6; i++) {
             brick = novoBrick(3, Brick.width, Brick.height,
                     new Vector2(0,0),
                     new Vector2(0,gameWidth),
@@ -185,16 +186,15 @@ public class GameMap {
 
             bricks.add(brick);
 
-            if (i < 6) {
-                brick = novoBrick(3, Brick.height, Brick.width,
-                        new Vector2(0, 0),
-                        new Vector2(0, gameWidth),
-                        new Vector2(0, gameHeight));
-                brick.body.x = gameWidth - brick.body.width;
-                brick.body.y = gameHeight - Brick.height - (i + 1) * brick.body.height;
+            brick = novoBrick(3, Brick.height, Brick.width,
+                    new Vector2(0, 0),
+                    new Vector2(0, gameWidth),
+                    new Vector2(0, gameHeight));
+            brick.body.x = gameWidth - brick.body.width;
+            brick.body.y = gameHeight - Brick.height - (i + 1) * brick.body.height;
 
-                bricks.add(brick);
-            }
+            bricks.add(brick);
+
         }
 
         brick = novoBrick(2, Brick.width, Brick.height,
@@ -289,6 +289,41 @@ public class GameMap {
         booster.body.y = 3*gameHeight/4 - booster.body.height / 2;
 
         specials.add(booster);
+
+        this.total_bricks = this.brick_count;
+    }
+
+    private void map5() {
+        Brick brick;
+
+
+        for (int i = 0; i < 8; i++) {
+            brick = novoBrick(1, Brick.height, Brick.height,
+                    new Vector2(300, 0),
+                    new Vector2(0 , gameWidth),
+                    new Vector2(0, gameHeight));
+            brick.body.y = gameHeight - (i+1)*(2*brick.body.height);
+            brick.body.x = 0;
+            bricks.add(brick);
+
+            brick = novoBrick(2, Brick.height, Brick.height,
+                    new Vector2(-300, 0),
+                    new Vector2(0 , gameWidth),
+                    new Vector2(0, gameHeight));
+            brick.body.y = gameHeight - (i)*(2*brick.body.height) - brick.body.height;
+            brick.body.x = gameWidth - brick.body.width;
+            bricks.add(brick);
+        }
+
+
+        Special mud = new Special(Special.MUD, gameWidth, 200,
+                new Vector2(0,0),
+                new Vector2(0,gameWidth),
+                new Vector2(0, gameHeight));
+        mud.body.x = 0;
+        mud.body.y = gameHeight/4;
+
+        specials.add(mud);
 
         this.total_bricks = this.brick_count;
     }

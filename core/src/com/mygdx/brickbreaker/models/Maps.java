@@ -11,7 +11,7 @@ import com.mygdx.brickbreaker.BrickBreaker;
  */
 
 public class Maps {
-    public static Integer total = 5;
+    public static Integer total = 6;
     private BrickBreaker game;
     private GameMap[] maps;
     private Integer level;
