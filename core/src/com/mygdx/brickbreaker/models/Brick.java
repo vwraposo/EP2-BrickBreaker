@@ -80,6 +80,7 @@ public class Brick {
 
     public boolean hit() {
         if (this.hitWait <= 0) {
+            // TODO: buscar melhor valor para hitWait
             this.hitWait = 10;
             if (--this.lives == 0)
                 this.visible = false;
