@@ -87,4 +87,12 @@ public class Ball extends Body {
     public void reflectY () {
         this.velocity.y *= -1;
     }
+
+    public Ball previousFrame (float delta) {
+        Ball clone = new Ball("ball.png");
+        clone.body.x = this.body.x - this.velocity.x * delta;
+        clone.body.y = this.body.y - this.velocity.y * delta;
+
+        return clone;
+    }
 }

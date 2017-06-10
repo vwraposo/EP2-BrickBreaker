@@ -96,10 +96,10 @@ public class GameController {
         }
     }
 
-    private void collision (Brick brick) {
+    private void collision (Brick brick, float delta) {
         Ball ball = game.ball;
         if (brick.is_visible() && ball.body.overlaps(brick.body)) {
-            switch (brick.collision_side(ball)) {
+            switch (brick.collision_side(ball, delta)) {
                 case 3: // TOP_SIDE
                     ball.body.y = brick.top();
                     ball.reflectY();
@@ -128,7 +128,7 @@ public class GameController {
 
         for (Brick brick: game.gameMap.bricks) {
             brick.move(delta);
-            collision(brick);
+            collision(brick,delta);
         }
 
         for (Special special : game.gameMap.specials) {
