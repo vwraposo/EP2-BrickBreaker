@@ -145,32 +145,132 @@ public class GameMap {
     }
 
     private void map4() {
-        Brick brick = novoBrick(1, Brick.width, Brick.height,
-                new Vector2(0,0),
-                new Vector2(0,gameWidth),
-                new Vector2(0,gameHeight));
-        brick.body.x = 0;
-        brick.body.y = 0;
+        Brick brick;
+
+        float ini = gameWidth / 4;
+        for (int i = 0; i < 7; i++) {
+            brick = novoBrick(3, Brick.width, Brick.height,
+                    new Vector2(0,0),
+                    new Vector2(0,gameWidth),
+                    new Vector2(0,gameHeight));
+            brick.body.x = ini + i*Brick.width;
+            brick.body.y = gameHeight/2 - 100;
+
+            bricks.add(brick);
+
+            brick = novoBrick(3, Brick.width, Brick.height,
+                    new Vector2(0,0),
+                    new Vector2(0,gameWidth),
+                    new Vector2(0,gameHeight));
+            brick.body.x = ini + i*Brick.width;
+            brick.body.y = gameHeight;
+
+            bricks.add(brick);
+
+            if (i < 6) {
+                brick = novoBrick(3, Brick.height, Brick.width,
+                        new Vector2(0, 0),
+                        new Vector2(0, gameWidth),
+                        new Vector2(0, gameHeight));
+                brick.body.x = gameWidth - brick.body.width;
+                brick.body.y = gameHeight - Brick.height - (i + 1) * brick.body.height;
+
+                bricks.add(brick);
+            }
+        }
+
+        brick = novoBrick(2, Brick.width, Brick.height,
+                new Vector2(0, 500),
+                new Vector2(0, gameWidth),
+                new Vector2(gameHeight/2 - 100 + Brick.height, gameHeight - Brick.height));
+
+        brick.body.x = ini;
+        brick.body.y = gameHeight/2 - 100 + Brick.height;
 
         bricks.add(brick);
 
-        Special bumper = new Special(Special.BOOSTER, gameWidth, 200    ,
+        brick = novoBrick(2, Brick.width, Brick.height,
+                new Vector2(0, -500),
+                new Vector2(0, gameWidth),
+                new Vector2(gameHeight/2 - 100 + Brick.height, gameHeight - Brick.height));
+
+        brick.body.x = gameWidth - Brick.height - Brick.width;
+        brick.body.y = gameHeight - 2*Brick.height;
+
+        bricks.add(brick);
+
+
+        brick = novoBrick(2, Brick.width, Brick.height,
+                new Vector2(370, 0),
+                new Vector2(ini, gameWidth - Brick.height),
+                new Vector2(0, gameHeight));
+
+        brick.body.x = ini;
+        brick.body.y = gameHeight - 2*Brick.height;
+
+        bricks.add(brick);
+
+        brick = novoBrick(2, Brick.width, Brick.height,
+                new Vector2(-370, 0),
+                new Vector2(ini, gameWidth - Brick.height),
+                new Vector2(0, gameHeight));
+
+        brick.body.x = gameWidth - Brick.height - Brick.width;
+        brick.body.y = gameHeight/2 - 100 + Brick.height;
+
+        bricks.add(brick);
+
+        brick = novoBrick(1, Brick.width, Brick.width,
+                new Vector2(0, 0),
+                new Vector2(0, gameWidth),
+                new Vector2(0, gameHeight));
+
+        brick.body.x = 5*gameWidth/8 - brick.body.width;
+        brick.body.y = 3*gameHeight/4;
+        bricks.add(brick);
+
+        brick = novoBrick(1, Brick.width, Brick.width,
+                new Vector2(0, 0),
+                new Vector2(0, gameWidth),
+                new Vector2(0, gameHeight));
+        brick.body.x = 5*gameWidth/8;
+        brick.body.y = 3*gameHeight/4;
+        bricks.add(brick);
+
+        brick = novoBrick(1, Brick.width, Brick.width,
+                new Vector2(0, 0),
+                new Vector2(0, gameWidth),
+                new Vector2(0, gameHeight));
+        brick.body.x = 5*gameWidth/8 - brick.body.width;
+        brick.body.y = 3*gameHeight/4 - brick.body.height;
+        bricks.add(brick);
+
+        brick = novoBrick(1, Brick.width, Brick.width,
+                new Vector2(0, 0),
+                new Vector2(0, gameWidth),
+                new Vector2(0, gameHeight));
+        brick.body.x = 5*gameWidth/8;
+        brick.body.y = 3*gameHeight/4 - brick.body.height;
+        bricks.add(brick);
+
+
+        Special booster = new Special(Special.BOOSTER, 200, 400,
+                new Vector2(0,600),
+                new Vector2(0,gameWidth),
+                new Vector2(gameHeight/2 - 200,gameHeight - 200));
+        booster.body.x = booster.body.width/2;
+        booster.body.y = gameHeight / 2;
+
+        specials.add(booster);
+
+        booster = new Special(Special.BOOSTER, 2*Brick.width+50, 2*Brick.width + 50,
                 new Vector2(0,0),
                 new Vector2(0,gameWidth),
-                new Vector2(0,gameHeight));
-        bumper.body.x = (gameWidth - bumper.width)/2;
-        bumper.body.y = (gameHeight - bumper.height)/2;
+                new Vector2(0, gameHeight));
+        booster.body.x = 5*gameWidth / 8 - booster.body.width / 2;
+        booster.body.y = 3*gameHeight/4 - booster.body.height / 2;
 
-//        specials.add(bumper);
-
-        Special mud = new Special(Special.MUD, gameWidth, 200    ,
-                new Vector2(0,0),
-                new Vector2(0,gameWidth),
-                new Vector2(0,gameHeight));
-        mud.body.x = (gameWidth - mud.width)/2;
-        mud.body.y = 3*(gameHeight - mud.height)/4;
-
-        specials.add(mud);
+        specials.add(booster);
 
         this.total_bricks = this.brick_count;
     }
