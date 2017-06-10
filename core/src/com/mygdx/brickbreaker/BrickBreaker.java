@@ -49,6 +49,7 @@ public class BrickBreaker extends Game {
 	private Sound booster;
 	private Sound mud;
 	private Sound breaking;
+	private Sound metalSound;
 	
 	@Override
 	public void create () {
@@ -84,6 +85,7 @@ public class BrickBreaker extends Game {
 		booster = Gdx.audio.newSound(Gdx.files.internal("speedup.mp3"));
 		mud = Gdx.audio.newSound(Gdx.files.internal("slowdown.mp3"));
 		breaking = Gdx.audio.newSound(Gdx.files.internal("brick_hit.wav"));
+		metalSound = Gdx.audio.newSound(Gdx.files.internal("metal_hit.mp3"));
 
 	}
 
@@ -128,6 +130,7 @@ public class BrickBreaker extends Game {
 		mud.dispose();
 		booster.dispose();
 		platformHit.dispose();
+		metalSound.dispose();
 	}
 
 	public void nextLevel() {
@@ -174,5 +177,9 @@ public class BrickBreaker extends Game {
 
 	public void breakingSoundPlay() {
 		this.breaking.play();
+	}
+
+	public void metalSoundPlay() {
+		this.metalSound.play();
 	}
 }
