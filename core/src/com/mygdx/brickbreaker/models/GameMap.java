@@ -154,14 +154,24 @@ public class GameMap {
 
         bricks.add(brick);
 
-        Special bumper = new Special(Special.BOOSTER, 100, 100,
+        Special bumper = new Special(Special.BOOSTER, gameWidth, 200    ,
                 new Vector2(0,0),
                 new Vector2(0,gameWidth),
                 new Vector2(0,gameHeight));
         bumper.body.x = (gameWidth - bumper.width)/2;
         bumper.body.y = (gameHeight - bumper.height)/2;
 
-        specials.add(bumper);
+//        specials.add(bumper);
+
+        Special mud = new Special(Special.MUD, gameWidth, 200    ,
+                new Vector2(0,0),
+                new Vector2(0,gameWidth),
+                new Vector2(0,gameHeight));
+        mud.body.x = (gameWidth - mud.width)/2;
+        mud.body.y = 3*(gameHeight - mud.height)/4;
+
+        specials.add(mud);
+
         this.total_bricks = this.brick_count;
     }
 }

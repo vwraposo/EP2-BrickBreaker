@@ -86,7 +86,7 @@ public class GameController {
         Body platform = game.platform;
         float platform_top = platform.body.y + platform.body.height;
         float platform_centerX = platform.body.x + platform.body.width/2;
-        float platform_centerY = platform.body.y + platform.body.height/2;
+        float platform_centerY = platform.body.y - platform.body.height/2;
 
         if (ball.body.overlaps(platform.body) && ball.centerY() > platform_top) {
             Vector2 d = new Vector2(ball.centerX() - platform_centerX, ball.centerY() - platform_centerY);

@@ -49,7 +49,10 @@ public class Ball extends Body {
         //Restore Velocity
         Gdx.app.log("NORM", String.valueOf(norm));
         if (norm > NORM + eps) {
-            norm -= delta*(1.7*NORM - NORM) / 3.2;
+            norm -= delta*(1.7*NORM - NORM) / 7;
+            velocity = velocity.nor().scl(norm);
+        } else if (norm < NORM - eps) {
+            norm -= delta*(NORM - NORM/1*7) / 7;
             velocity = velocity.nor().scl(norm);
         }
         this.body.x += velocity.x * delta;

@@ -15,8 +15,7 @@ import com.mygdx.brickbreaker.models.Body;
 import com.mygdx.brickbreaker.models.Brick;
 import com.mygdx.brickbreaker.models.GameMap;
 import com.mygdx.brickbreaker.models.Maps;
-import com.mygdx.brickbreaker.models.Special;
-import com.sun.org.apache.xpath.internal.operations.Bool;
+
 
 public class BrickBreaker extends Game {
 
