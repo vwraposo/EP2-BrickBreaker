@@ -3,6 +3,7 @@ package com.mygdx.brickbreaker;
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.audio.Music;
+import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
@@ -15,6 +16,7 @@ import com.mygdx.brickbreaker.models.Body;
 import com.mygdx.brickbreaker.models.Brick;
 import com.mygdx.brickbreaker.models.GameMap;
 import com.mygdx.brickbreaker.models.Maps;
+import com.mygdx.brickbreaker.models.Special;
 
 
 public class BrickBreaker extends Game {
@@ -43,6 +45,10 @@ public class BrickBreaker extends Game {
 
 	// Musica
 	private Music background_track;
+	private Sound platformHit;
+	private Sound booster;
+	private Sound mud;
+	private Sound breaking;
 	
 	@Override
 	public void create () {
@@ -74,6 +80,11 @@ public class BrickBreaker extends Game {
 		background_track.setLooping(true);
 		background_track.play();
 
+		platformHit= Gdx.audio.newSound(Gdx.files.internal("platform_hit.ogg"));
+		booster = Gdx.audio.newSound(Gdx.files.internal("speedup.mp3"));
+		mud = Gdx.audio.newSound(Gdx.files.internal("slowdown.mp3"));
+		breaking = Gdx.audio.newSound(Gdx.files.internal("brickbreaking.mp3"));
+
 	}
 
 	public void startGame() {
@@ -104,8 +115,6 @@ public class BrickBreaker extends Game {
         gameMap = maps.getMap();
     }
 
-
-
 	@Override
 	public void render () {
 		super.render();
@@ -116,6 +125,9 @@ public class BrickBreaker extends Game {
 		batch.dispose();
 		font.dispose();
         background_track.dispose();
+		mud.dispose();
+		booster.dispose();
+		platformHit.dispose();
 	}
 
 	public void nextLevel() {
@@ -147,5 +159,20 @@ public class BrickBreaker extends Game {
 
 	public Boolean result() {
 		return victory;
+	}
+
+	public void platformSoundPlay() {
+		this.platformHit.play();
+	}
+
+	public void specialSoundPlay(int specialType) {
+		if (specialType == Special.BOOSTER)
+			this.booster.play();
+		else
+			this.mud.play();
+	}
+
+	public void breakingSoundPlay() {
+		this.breaking.play();
 	}
 }

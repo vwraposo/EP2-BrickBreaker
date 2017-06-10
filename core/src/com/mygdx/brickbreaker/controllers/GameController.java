@@ -21,17 +21,9 @@ import java.util.Iterator;
 public class GameController {
     final BrickBreaker game;
 
-
-    private Sound platformHit;
-    private Sound bumperHit;
-
-
     public GameController(BrickBreaker game) {
         // Locais
         this.game = game;
-
-        platformHit= Gdx.audio.newSound(Gdx.files.internal("platform_hit.ogg"));
-        bumperHit = Gdx.audio.newSound(Gdx.files.internal("pinball_bumper_sound.mp3"));
     }
 
     public void render(float delta) {
@@ -92,7 +84,7 @@ public class GameController {
             Vector2 d = new Vector2(ball.centerX() - platform_centerX, ball.centerY() - platform_centerY);
             ball.velocity = d.nor().scl(ball.norm);
             ball.body.y = platform_top;
-            platformHit.play();
+            game.platformSoundPlay();
         }
     }
 
@@ -116,7 +108,10 @@ public class GameController {
                     ball.body.x = brick.right();
                     ball.reflectX();
             }
-            if (brick.hit()) game.gameMap.brick_count--;
+            if (brick.hit()) {
+                game.gameMap.brick_count--;
+                game.breakingSoundPlay();
+            }
         }
     }
 
@@ -134,7 +129,7 @@ public class GameController {
         for (Special special : game.gameMap.specials) {
             if (game.ball.body.overlaps(special.body)) {
                 special.action(game);
-                bumperHit.play();
+                game.specialSoundPlay(special.type);
             }
             special.move(delta);
         }
@@ -143,7 +138,6 @@ public class GameController {
             Gdx.app.log("ENDGAME", "You won");
             game.gameWon();
             game.setState(game.FINISH);
-            dispose();
         }
 
         game.ball.move(delta);
@@ -166,11 +160,6 @@ public class GameController {
         if (game.platform.body.x < 0) game.platform.body.x = 0;
         else if (game.platform.body.x + 2 * game.platform.body.width / 2 > game.WIDTH)
             game.platform.body.x = game.WIDTH - game.platform.body.width;
-    }
-
-    private  void dispose() {
-        platformHit.dispose();
-        bumperHit.dispose();
     }
 }
 

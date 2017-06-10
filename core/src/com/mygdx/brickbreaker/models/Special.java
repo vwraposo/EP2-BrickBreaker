@@ -16,7 +16,7 @@ import com.badlogic.gdx.graphics.Color;
 public class Special extends Brick {
     public static final Integer BOOSTER = 1;
     public static final Integer MUD = 2;
-    private Integer type;
+    public Integer type;
     private Texture image;
 
 

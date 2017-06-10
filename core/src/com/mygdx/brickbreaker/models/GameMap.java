@@ -65,6 +65,24 @@ public class GameMap {
             h -= Brick.height + space;
         }
 
+        Special special = new Special(Special.BOOSTER,Brick.width,Brick.height,
+                new Vector2(0,0),
+                new Vector2(0,gameWidth),
+                new Vector2(0,gameHeight));
+        special.body.x = 0;
+        special.body.y = (gameHeight - Brick.height)/2;
+
+        specials.add(special);
+
+        special = new Special(Special.MUD,Brick.width,Brick.height,
+                new Vector2(0,0),
+                new Vector2(0,gameWidth),
+                new Vector2(0,gameHeight));
+        special.body.x = gameWidth - Brick.width;
+        special.body.y = (gameHeight - Brick.height)/2;
+
+        specials.add(special);
+
         this.total_bricks = this.brick_count;
     }
 
