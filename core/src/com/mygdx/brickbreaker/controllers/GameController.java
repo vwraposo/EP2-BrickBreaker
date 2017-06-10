@@ -91,6 +91,8 @@ public class GameController {
     private void collision (Brick brick, float delta) {
         Ball ball = game.ball;
         if (brick.is_visible() && ball.body.overlaps(brick.body)) {
+            if (brick instanceof UnbreakableBrick)
+                game.metalSoundPlay();
             switch (brick.collision_side(ball.previousFrame(delta))) {
                 case 3: // TOP_SIDE
                     ball.body.y = brick.top();
