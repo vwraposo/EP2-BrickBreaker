@@ -36,6 +36,7 @@ public class GameMap {
 
     private Brick novoBrick (int lives, float w, float h, Vector2 vel, Vector2 limX, Vector2 limY) {
         this.brick_count++;
+        this.total_bricks = this.brick_count;
         return new Brick(lives,w,h,vel,limX,limY);
     }
 
@@ -79,8 +80,6 @@ public class GameMap {
         special.body.y = (gameHeight - Brick.height)/2;
 
         specials.add(special);
-
-        this.total_bricks = this.brick_count;
     }
 
     private void map1() {
@@ -102,7 +101,6 @@ public class GameMap {
             }
             h -= Brick.height + space;
         }
-        this.total_bricks = this.brick_count;
     }
 
     private void map2() {
@@ -137,7 +135,6 @@ public class GameMap {
                 }
             }
         }
-        this.total_bricks = this.brick_count;
     }
 
     private void map3() {
@@ -156,7 +153,6 @@ public class GameMap {
 
             bricks.add(brick);
         }
-        this.total_bricks = this.brick_count;
     }
 
     private void map4() {
@@ -285,8 +281,6 @@ public class GameMap {
         booster.body.y = 3*gameHeight/4 - booster.body.height / 2;
 
         specials.add(booster);
-
-        this.total_bricks = this.brick_count;
     }
 
     private void map5() {
@@ -345,10 +339,5 @@ public class GameMap {
                 bricks.add(brick);
             }
         }
-
-
-
-
-        this.total_bricks = this.brick_count;
     }
 }
