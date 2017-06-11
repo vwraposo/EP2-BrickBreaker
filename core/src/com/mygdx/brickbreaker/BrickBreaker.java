@@ -75,7 +75,7 @@ public class BrickBreaker extends Game {
 		// Musica
 		background_track = Gdx.audio.newMusic(Gdx.files.internal("background_track.mp3"));
 
-		background_track.setVolume(0.42f);
+		background_track.setVolume(0.38f);
 		background_track.setLooping(true);
 		background_track.play();
 
@@ -168,9 +168,9 @@ public class BrickBreaker extends Game {
 
 	public void specialSoundPlay(int specialType) {
 		if (specialType == Special.BOOSTER)
-			this.booster.play();
+			this.booster.play(0.5f);
 		else
-			this.mud.play();
+			this.mud.play(0.5f);
 	}
 
 	public void breakingSoundPlay() {

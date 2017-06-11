@@ -131,7 +131,9 @@ public class GameController {
         for (Special special : game.gameMap.specials) {
             if (game.ball.body.overlaps(special.body)) {
                 special.action(game);
-                game.specialSoundPlay(special.type);
+                Ball prev = game.ball.previousFrame(delta);
+                if (!prev.body.overlaps(special.body) && game.ball.body.overlaps(special.body))
+                    game.specialSoundPlay(special.type);
             }
             special.move(delta);
         }

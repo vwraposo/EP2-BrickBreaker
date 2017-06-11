@@ -311,7 +311,7 @@ public class GameMap {
         for (int i = 0; i < 8; i++) {
             brick = novoBrick(1, Brick.height, Brick.height,
                     new Vector2(300 * (i+1) /3 , -300 * (i + 1) / 3),
-                    new Vector2(0 , gameWidth/2 - 10),
+                    new Vector2(0 , gameWidth/2 - 50),
                     new Vector2(5*gameHeight / 8, gameHeight));
             brick.body.y = gameHeight / 2;
             brick.body.x = gameWidth / 2;
